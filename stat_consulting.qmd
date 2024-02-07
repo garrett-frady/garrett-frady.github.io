@@ -1,0 +1,7 @@
+---
+title: "Statistical Consulting"
+---
+
+I have worked as a consultant with Statistical Consulting Services (SCS) at the University of Connecticut since July, 2022. For more details surrounding SCS and our mission, please visit <https://statsconsulting.uconn.edu/>. In this position, I have collaborated with a variety of students and faculty from departments such as Kinesiology, Psychology, Civil and Environmental Engineering, Physiology and Neurobiology, Speech and Language, School of Pharmacy, and the School of Public Health. I have also had the experience of working with external clients such as Hartford HealthCare. These collaborative experiences have elevated my capabilities as a researcher, enhanced my proficiency in R, facilitated exploration into various statistical coding languages, and enriched my skills as an educator.
+
+# Projects

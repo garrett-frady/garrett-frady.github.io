@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+
+website:
+  title: "Garrett Frady - PhD Candidate"
+  search: true
+  cookie-consent: false
+  twitter-card: true
+  open-graph: true
+  site-url: https://garrett-frady.github.io
+  navbar:
+    left:
+      - blog.qmd
+      - text: "Curriculum Vitae"
+        href: CV.pdf
+      - text: "Research Statement"
+        href: Frady_Research_Statement.pdf
+      - publications.qmd
+      - stat_consulting.qmd
+    right:
+      - icon: github
+        href: https://github.com/garrett-frady
+      - icon: linkedin
+        href: https://www.linkedin.com/in/garrett-frady/
+  page-footer: 
+    left: "Graduate Assistant - Department of Statistics - University of Connecticut"
+
+format:
+  html:
+    theme: 
+      - sandstone
+      - custom.scss
+    mainfont: Playfair Display
+    css: styles.css
