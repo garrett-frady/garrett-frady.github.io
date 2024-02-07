@@ -54,5 +54,40 @@
     "title": "Statistical Consulting",
     "section": "",
     "text": "I have worked as a consultant with Statistical Consulting Services (SCS) at the University of Connecticut since July, 2022. For more details surrounding SCS and our mission, please visit https://statsconsulting.uconn.edu/. In this position, I have collaborated with a variety of students and faculty from departments such as Kinesiology, Psychology, Civil and Environmental Engineering, Physiology and Neurobiology, Speech and Language, School of Pharmacy, and the School of Public Health. I have also had the experience of working with external clients such as Hartford HealthCare. These collaborative experiences have elevated my capabilities as a researcher, enhanced my proficiency in R, facilitated exploration into various statistical coding languages, and enriched my skills as an educator.\n\nProjects"
+  },
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "My dedication to teaching and mentorship has been exemplified through the effort I have given to the different leadership roles I have held as a Graduate Assistant at the University of Connecticut. As the primary instructor of courses such as Introduction to Statistics and Introduction to Mathematical Statistics, the feedback I have received from student evaluations supports my level of commitment to fostering growth in others while continually advancing myself. The one-on-one tutoring positions I have held showcased my capacity to build strong connections with students and elevated my capability of providing relatable examples tailored to the individual. My experience in these roles has refined my ability to communicate statistical concepts, enhancing my adaptability to diverse learning needs. Beyond traditional teaching roles, I organized workshops introducing R to faculty and students from diverse disciplines, fostering a cross-disciplinary understanding of statistical tools.\n\nCourses - Primary Instructor\n\nIntroduction to Statistics (STAT1000Q)\n\n\nElementary Concepts of Statistics (STAT1100Q)\n\n\nIntroduction to Mathematical Statistics II (STAT3445Q)"
+  },
+  {
+    "objectID": "teaching.html#introduction-to-statistics-stat1000",
+    "href": "teaching.html#introduction-to-statistics-stat1000",
+    "title": "Teaching",
+    "section": "Introduction to Statistics (STAT1000)",
+    "text": "Introduction to Statistics (STAT1000)"
+  },
+  {
+    "objectID": "teaching.html#elementary-concepts-of-statistics-stat1100",
+    "href": "teaching.html#elementary-concepts-of-statistics-stat1100",
+    "title": "Teaching",
+    "section": "Elementary Concepts of Statistics (STAT1100)",
+    "text": "Elementary Concepts of Statistics (STAT1100)"
+  },
+  {
+    "objectID": "teaching.html#introduction-to-mathematical-statistics-ii-stat3445",
+    "href": "teaching.html#introduction-to-mathematical-statistics-ii-stat3445",
+    "title": "Teaching",
+    "section": "Introduction to Mathematical Statistics II (STAT3445)",
+    "text": "Introduction to Mathematical Statistics II (STAT3445)"
+  },
+  {
+    "objectID": "research_interests.html",
+    "href": "research_interests.html",
+    "title": "Research Interest",
+    "section": "",
+    "text": "My academic journey is propelled by an unwavering commitment to developing cutting-edge statistical methodologies, seeking novel approaches to address the intricacies posed by contemporary data challenges. At the forefront of my research interests is an exploration of high-dimensional datasets, particularly those imbued with intricate spatio-temporal patterns. I am captivated by the dynamic evolution of spatial structures over time, spurring my quest to forge methodologies adept at unraveling the complexity embedded in such datasets.\nWithin the realm of statistical methodologies, my focal point is Bayesian feature extraction and estimation methods, where the nuanced incorporation of priors with potent shrinkage characteristics holds the key to unveiling latent structures within data. My research seeks not only to enhance our theoretical understanding but also to provide practical tools for efficient modeling and inference.\nA significant application of my methodological endeavors lies in neuroimaging data analysis, specifically addressing critical public health concerns related to mental illnesses. Leveraging Bayesian classification and regression techniques, I am driven to predict the early onset of mental-related illnesses. My exploration extends to unraveling functional connectivity intricacies between distinct brain regions, contributing to the broader discourse on cognitive and behavioral states.\nIn navigating the statistical landscape, my overarching ambition is to contribute to the advancement of statistical science. By delving into the intricacies of Bayesian methodologies, high-dimensional data analysis, and their application in neuroimaging, my research aims to be at the forefront of innovative statistical endeavors with real-world implications."
   }
 ]

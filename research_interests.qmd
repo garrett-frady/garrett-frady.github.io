@@ -1,0 +1,11 @@
+---
+title: "Research Interest"
+---
+
+My academic journey is propelled by an unwavering commitment to developing cutting-edge statistical methodologies, seeking novel approaches to address the intricacies posed by contemporary data challenges. At the forefront of my research interests is an exploration of high-dimensional datasets, particularly those imbued with intricate spatio-temporal patterns. I am captivated by the dynamic evolution of spatial structures over time, spurring my quest to forge methodologies adept at unraveling the complexity embedded in such datasets.
+
+Within the realm of statistical methodologies, my focal point is Bayesian feature extraction and estimation methods, where the nuanced incorporation of priors with potent shrinkage characteristics holds the key to unveiling latent structures within data. My research seeks not only to enhance our theoretical understanding but also to provide practical tools for efficient modeling and inference.
+
+A significant application of my methodological endeavors lies in neuroimaging data analysis, specifically addressing critical public health concerns related to mental illnesses. Leveraging Bayesian classification and regression techniques, I am driven to predict the early onset of mental-related illnesses. My exploration extends to unraveling functional connectivity intricacies between distinct brain regions, contributing to the broader discourse on cognitive and behavioral states.
+
+In navigating the statistical landscape, my overarching ambition is to contribute to the advancement of statistical science. By delving into the intricacies of Bayesian methodologies, high-dimensional data analysis, and their application in neuroimaging, my research aims to be at the forefront of innovative statistical endeavors with real-world implications.
