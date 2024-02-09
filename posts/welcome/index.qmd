@@ -1,8 +1,8 @@
 ---
-title: "Welcome To My Blog"
+title: "Bidirectional Relationship Between Food Security and Smoking"
 author: "Tristan O'Malley"
-date: "2023-09-06"
-categories: [news]
+# date: "2023-09-06"
+categories: [graph, code, analysis]
 ---
 
 This is the first post in a Quarto blog. Welcome!

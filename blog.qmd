@@ -1,8 +1,8 @@
 ---
-title: "how do you wanna call your blog?"
+title: "Statisticial Consulting"
 listing:
   contents: posts
-  sort: "date desc"
+#  sort: "date desc"
   type: default
   categories: true
   sort-ui: false

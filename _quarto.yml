@@ -37,3 +37,5 @@ format:
       - custom.scss
     mainfont: Playfair Display
     css: styles.css
+    code-fold: true
+#    code-tools: true

@@ -1,0 +1,786 @@
+---
+title: "Distance Error Models"
+date: "`r Sys.Date()`"
+author: "Garrett Frady and Tim Moore"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: true
+    default_style: "light"
+    downcute_theme: "default"
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = TRUE,
+                      echo = T,
+                      eval = T,
+                      warning = F,
+                      message = F)
+
+library(dplyr) # manipulate data
+library(ordbetareg) # ordered beta regression; Bayesian model
+library(modelsummary) # summary of model fit
+library(marginaleffects) # extract marginal effects from model fit
+library(lme4)
+library(ggeffects)
+library(reghelper)
+library(lmerTest)
+#install.packages("ordbetareg")
+#install.packages("modelsummary")
+#install.packages("lmerTest")
+#install.packages("marginaleffects")
+#install.packages("reghelper")
+#install.packages("sjPlot")
+
+```
+
+```{r}
+# need to change the file name to match your path destination or change working directory
+# setwd(dir = "Andys_Project_Info/")
+dat <- read.csv("Master FPL Summary Data.csv")
+
+
+
+# transform percents to proportions so values are between 0 and 1
+dat$dist_err_propoff <- dat$dist_err_percentoff/100
+dat$error_points <- ceiling(dat$dist_err_propoff*dat$dist_err_points)
+dat$correct_points <- dat$dist_err_points - dat$error_points
+
+
+```
+
+# Experiment 1 and 2 (combined) [use this]
+
+```{r, results=FALSE}
+
+
+ggplot(data = dat %>% dplyr::filter(experiment == 1, path == "E1P1"), aes(x = trial_type, 
+                                                          y = dist_err_percentoff))+
+  geom_boxplot()
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+
+
+# 8/9/2023
+
+mod.exp1 <- glmer(cbind(correct_points, error_points) ~
+                    trial_type+total_years_experience + trial_type*path +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial, 
+                           data = dat %>% dplyr::filter(experiment == 1))
+#performance::posterior_predictive_check(mod.exp1)
+
+mod.exp2 <- glmer(cbind(correct_points, error_points) ~
+                    trial_type+total_years_experience + trial_type*path +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial, 
+                           data = dat %>% dplyr::filter(experiment == 2))
+windows()
+check_model(mod.exp1, check = "pp_check")
+check_model(mod.exp2, check = "pp_check")
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum.exp1 <- summary(mod.exp1)
+
+# additional summary table of the model fit above
+sumtab.exp1 <- sjPlot::tab_model(mod.exp1)
+sumtab.exp2 <- sjPlot::tab_model(mod.exp2)
+
+sjPlot::tab_model(mod.exp1, mod.exp2, 
+                  dv.labels = c("exp1", "exp2"))
+
+# ggeffects plots
+plot(ggpredict(mod.exp1, terms = c("trial_type", "path")))
+plot(ggpredict(mod.exp2, terms = c("trial_type", "path")))
+
+
+simple_slopes(mod.exp1)
+
+
+# use this
+library(emmeans)
+em1 <- emmeans(mod.exp1, ~trial_type|path, type = "response")
+em2 <- emmeans(mod.exp2, ~trial_type|path, type = "response")
+
+pairs(em1)
+pairs(em2)
+
+car::Anova(mod.exp1)
+car::Anova(mod.exp2)
+
+dat$perc <- dat$correct_points/(dat$correct_points+dat$error_points)
+
+
+dat %>% group_by(path, trial_type) %>% dplyr::summarize(mean.perc = mean(perc, na.rm = TRUE))
+
+```
+
+
+-------------------------------------------------------------------------------------
+
+[OLD ANALYSES]
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum.exp1
+sumtab.exp1
+```
+
+## E1P1
+
+```{r, results=FALSE}
+
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+#hist(dat$total_years_experience)
+
+# logitTransform <- function(p) { log(p/(1-p)) }
+# asinTransform <- function(p) { asin(sqrt(p)) }
+# dat$trans <- asinTransform(dat$dist_err_propoff)
+
+library(gtsummary)
+dat %>% dplyr::filter(experiment == 1, path == "E1P1") %>%
+           select(trial_type, dist_err_percentoff) %>%
+  tbl_summary(by = trial_type, 
+              type = list(dist_err_percentoff="categorical"))
+
+dat %>% dplyr::filter(experiment == 2) %>% group_by(trial_type, path) %>%
+  summarize(mean.perc = mean(dist_err_percentoff))
+
+mod.1 <- glmer(cbind(error_points, correct_points) ~ trial_type+total_years_experience +
+                                #trial_across_both_experiments +
+                             (1|participant_number), family = binomial, 
+                           data = dat %>% dplyr::filter(experiment == 1, path == "E1P1"))
+#performance::posterior_predictive_check(mod.1)
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum1 <- summary(mod.1)
+
+# additional summary table of the model fit above
+sumtab1 <- sjPlot::tab_model(mod.1)
+
+# ggeffects plots
+plot(ggpredict(mod.1, terms = c("trial_type")))
+simple_slopes(mod.1)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum1
+sumtab1
+```
+
+## E1P2
+
+```{r, results=FALSE}
+
+dat %>% dplyr::filter(experiment == 1, path == "E1P2") %>%
+           select(trial_type, dist_err_percentoff) %>%
+  tbl_summary(by = trial_type, 
+              type = list(dist_err_percentoff="categorical"))
+
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+
+mod.2 <- glmer(cbind(error_points, correct_points) ~ trial_type +total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial,
+                           data = dat %>% dplyr::filter(experiment == 1, path == "E1P2"))
+#performance::posterior_predictive_check(mod.2)
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum2 <- summary(mod.2)
+
+# additional summary table of the model fit above
+sumtab2 <- sjPlot::tab_model(mod.2)
+
+# ggeffects plots
+plot(ggemmeans(mod.2, terms = c("trial_type")), add.data = TRUE)
+simple_slopes(mod.2)
+
+
+test <- dat %>% dplyr::filter(experiment == 1, path == "E1P2")
+
+test$pred <- predict(mod.2, type = "response")
+
+
+boxplot(test$pred~ test$trial_type)
+
+test %>% group_by(trial_type) %>% summarize(mean.do = mean(dist_err_percentoff))
+test %>% group_by(trial_type) %>% summarize(mean.do.pred = mean(pred))
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum2
+sumtab2
+```
+
+
+## E1P3
+
+```{r, results=FALSE}
+
+dat %>% dplyr::filter(experiment == 1, path == "E1P3") %>%
+           select(trial_type, dist_err_percentoff) %>%
+  tbl_summary(by = trial_type, 
+              type = list(dist_err_percentoff="categorical"))
+
+
+ggplot(data = dat %>% dplyr::filter(experiment == 1, path == "E1P3"), aes(x = trial_type, 
+                                                          y = dist_err_percentoff))+
+  geom_boxplot()
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+
+mod.3 <- glmer(cbind(error_points, correct_points) ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial,  
+                           data = dat %>% dplyr::filter(experiment == 1, path == "E1P3"))
+#performance::posterior_predictive_check(mod.3)
+
+library(performance)
+windows()
+library(DHARMa)
+sims <- simulateResiduals(mod.3)
+plot(sims)
+
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum3 <- summary(mod.3)
+
+# additional summary table of the model fit above
+sumtab3 <- sjPlot::tab_model(mod.3)
+
+# ggeffects plots
+plot(ggpredict(mod.3, terms = c("total_years_experience", "trial_type")))
+simple_slopes(mod.3)
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum3
+sumtab3
+```
+
+
+# Experiment 2
+
+```{r, results=FALSE}
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.exp2 <- glmer(cbind(error_points, correct_points) ~ 
+                    trial_type*total_years_experience + trial_type*path +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial,
+                           data = dat %>% dplyr::filter(experiment == 2))
+#performance::posterior_predictive_check(mod.4)
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum.exp2 <- summary(mod.exp2)
+
+# additional summary table of the model fit above
+sumtab.exp2 <- sjPlot::tab_model(mod.exp2)
+
+# ggeffects plots
+plot(ggpredict(mod.exp2, terms = c("total_years_experience", "trial_type", "path")), add.data = TRUE)
+simple_slopes(mod.exp2)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum.exp2
+sumtab.exp2
+```
+
+
+
+## E2P1
+
+```{r, results=FALSE}
+
+dat %>% dplyr::filter(experiment == 2, path == "E2P1") %>%
+           select(trial_type, dist_err_percentoff) %>%
+  tbl_summary(by = trial_type, 
+              type = list(dist_err_percentoff="categorical"))
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.4 <- glmer(cbind(error_points, correct_points) ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial,
+                           data = dat %>% dplyr::filter(experiment == 2, path == "E2P1"))
+#performance::posterior_predictive_check(mod.4)
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum4 <- summary(mod.4)
+
+# additional summary table of the model fit above
+sumtab4 <- sjPlot::tab_model(mod.4)
+
+# ggeffects plots
+plot(ggpredict(mod.4, terms = c("total_years_experience", "trial_type")), add.data = TRUE)
+simple_slopes(mod.4)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum4
+sumtab4
+```
+
+
+## E2P2
+
+```{r , results=FALSE}
+
+dat %>% dplyr::filter(experiment == 2, path == "E2P2") %>%
+           select(trial_type, dist_err_percentoff) %>%
+  tbl_summary(by = trial_type, 
+              type = list(dist_err_percentoff="categorical"))
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.5 <- glmer(cbind(error_points, correct_points) ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial, 
+                           data = dat %>% dplyr::filter(experiment == 2, path == "E2P2"))
+#performance::posterior_predictive_check(mod.5)
+
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum5 <- summary(mod.5)
+
+# additional summary table of the model fit above
+sumtab5 <- sjPlot::tab_model(mod.5)
+
+# ggeffects plots
+plot(ggpredict(mod.5, terms = c("trial_type")), add.data = TRUE)
+simple_slopes(mod.5)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum5
+sumtab5
+```
+
+## E2P3
+
+```{r , results=FALSE}
+dat %>% dplyr::filter(experiment == 2, path == "E2P3") %>%
+           select(trial_type, dist_err_percentoff) %>%
+  tbl_summary(by = trial_type, 
+              type = list(dist_err_percentoff="categorical"))
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.6 <- glmer(cbind(error_points, correct_points) ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), family = binomial, 
+                           data = dat %>% dplyr::filter(experiment == 2, path == "E2P3"))
+#performance::posterior_predictive_check(mod.6)
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum6 <- summary(mod.6)
+
+# additional summary table of the model fit above
+sumtab6 <- sjPlot::tab_model(mod.6)
+
+# ggeffects plots
+plot(ggpredict(mod.6, terms = c("trial_type")), add.data = TRUE)
+simple_slopes(mod.6)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum6
+sumtab6
+```
+
+
+---
+
+# Time Models
+
+# Experiment 1
+
+```{r, results=FALSE}
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+
+mod.exp1.t <- lmer(time_seconds ~ trial_type*total_years_experience + trial_type*path +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 1, success=="yes"))
+#performance::posterior_predictive_check(mod.exp1)
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum.exp1.t <- summary(mod.exp1.t)
+
+# additional summary table of the model fit above
+sumtab.exp1.t <- sjPlot::tab_model(mod.exp1.t)
+
+# ggeffects plots
+plot(ggpredict(mod.exp1.t, terms = c("total_years_experience", "trial_type", "path")), add.data = TRUE)
+simple_slopes(mod.exp1.t)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum.exp1.t
+sumtab.exp1.t
+```
+
+## E1P1
+
+```{r, results=FALSE}
+
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+#hist(dat$total_years_experience)
+
+# logitTransform <- function(p) { log(p/(1-p)) }
+# asinTransform <- function(p) { asin(sqrt(p)) }
+# dat$trans <- asinTransform(dat$dist_err_propoff)
+
+mod.1.t <- glmer(time_seconds ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 1, path == "E1P1",success=="yes"),                 family = "poisson")
+#performance::posterior_predictive_check(mod.1.t)
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum1.t <- summary(mod.1.t)
+
+# additional summary table of the model fit above
+sumtab1.t <- sjPlot::tab_model(mod.1.t)
+
+# ggeffects plots
+plot(ggpredict(mod.1.t, terms = c("total_years_experience", "trial_type")), add.data = TRUE)
+simple_slopes(mod.1.t)
+plot(ggpredict(mod.1.t, terms = c("trial_across_both_experiments", "trial_type")), add.data = TRUE)
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum1.t
+sumtab1.t
+```
+
+## E1P2
+
+```{r, results=FALSE}
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+
+mod.2.t <- glmer(time_seconds ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 1, path == "E1P2", success=="yes"), family = "poisson")
+#performance::posterior_predictive_check(mod.2.t)
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum2.t <- summary(mod.2.t)
+
+# additional summary table of the model fit above
+sumtab2.t <- sjPlot::tab_model(mod.2.t)
+
+# ggeffects plots
+plot(ggpredict(mod.2.t, terms = c("total_years_experience", "trial_type")), add.data = TRUE)
+simple_slopes(mod.2.t)
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum2.t
+sumtab2.t
+```
+
+
+## E1P3
+
+```{r, results=FALSE}
+
+# EXPERIMENT 1
+# same predictors as logistic regression models for success, with sequence included
+
+mod.3.t <- glmer(time_seconds ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 1, path == "E1P3", success=="yes"), family = "poisson")
+#performance::posterior_predictive_check(mod.3.t)
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum3.t <- summary(mod.3.t)
+
+# additional summary table of the model fit above
+sumtab3.t <- sjPlot::tab_model(mod.3.t)
+
+# ggeffects plots
+plot(ggpredict(mod.3.t, terms = c("total_years_experience", "trial_type")), add.data = TRUE)
+simple_slopes(mod.3.t)
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum3.t
+sumtab3.t
+```
+
+---
+
+# Experiment 2
+
+```{r, results=FALSE}
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.exp2.t <- glmer(time_seconds ~ trial_type*total_years_experience + trial_type*path +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 2, success=="yes"), 
+                    family = "poisson")
+#performance::posterior_predictive_check(mod.exp2.t)
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum.exp2.t <- summary(mod.exp2.t)
+
+# additional summary table of the model fit above
+sumtab.exp2.t <- sjPlot::tab_model(mod.exp2.t)
+
+# ggeffects plots
+plot(ggpredict(mod.exp2.t, terms = c("total_years_experience", "trial_type", "path")), add.data = TRUE)
+simple_slopes(mod.exp2.t)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum.exp2.t
+sumtab.exp2.t
+```
+
+
+
+## E2P1
+
+```{r, results=FALSE}
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.4.t <- glmer(time_seconds ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 2, path == "E2P1", success=="yes"), family = "poisson")
+#performance::posterior_predictive_check(mod.4.t)
+
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum4.t <- summary(mod.4.t)
+
+# additional summary table of the model fit above
+sumtab4.t <- sjPlot::tab_model(mod.4.t)
+
+# ggeffects plots
+plot(ggpredict(mod.4.t, terms = c("total_years_experience", "trial_type")), add.data = TRUE)
+simple_slopes(mod.4.t)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum4.t
+sumtab4.t
+```
+
+
+## E2P2
+
+```{r , results=FALSE}
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.5.t <- glmer(time_seconds ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 2, path == "E2P2", success=="yes"), family = "poisson")
+#performance::posterior_predictive_check(mod.5.t)
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum5.t <- summary(mod.5.t)
+
+# additional summary table of the model fit above
+sumtab5.t <- sjPlot::tab_model(mod.5.t)
+
+# ggeffects plots
+plot(ggpredict(mod.5.t, terms = c("total_years_experience", "trial_type")), add.data = TRUE)
+simple_slopes(mod.5.t)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum5.t
+sumtab5.t
+```
+
+## E2P3
+
+```{r , results=FALSE}
+
+# EXPERIMENT 2
+# same predictors as logistic regression models for success, with sequence included
+
+mod.6.t <- lmer(time_seconds ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number), 
+                           data = dat %>% dplyr::filter(experiment == 2, path == "E2P3", success=="yes"))
+#performance::posterior_predictive_check(mod.6.t)
+
+################### Model Summary ###################
+# smmary of the model fit above
+modsum6.t <- summary(mod.6.t)
+
+# additional summary table of the model fit above
+sumtab6.t <- sjPlot::tab_model(mod.6.t)
+
+# ggeffects plots
+plot(ggpredict(mod.6.t, terms = c("total_years_experience", "trial_type")), add.data = TRUE)
+simple_slopes(mod.6.t)
+
+
+```
+
+## Model Fit
+
+A summary of the model fit is given in the table below, along with an additional summary table. They contain similar information, so we can remove one eventually. 
+
+```{r}
+modsum6.t
+sumtab6.t
+```
+
+
+---
+
+```{r, include = FALSE, eval = FALSE}
+
+with(dat %>% dplyr::filter(experiment == 1, path == "E1P1"), dist_err_points)
+test <- glmer(dist_err_points ~ trial_type*total_years_experience +
+                                trial_across_both_experiments +
+                             (1|participant_number) ,
+                            #+ offset(round(path_distance_meters, 0)), 
+                           data = dat %>% dplyr::filter(experiment == 1, path == "E1P3"))
+plot(ggpredict(test, terms = c("trial_type")), add.data = TRUE)
+
+
+
+```

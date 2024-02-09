@@ -1,20 +1,21 @@
 # Publications
 
-## Submitted
-
 ::: {#list}
 :::
 
 ::: {#refs .references .csl-bib-body .hanging-indent entry-spacing="1" line-spacing="2"}
-::: {#ref-hernandes2023meowmazing .csl-entry}
-**Hernandez, K.** (2023). Meowmazing paper i wrote. *Meow Journal*, *000*,
-0--0.
+::: {#ref-frady2024gaussian .csl-entry}
+**Frady, G.**, Dey, D. K., Mohammed, S. (2024). Gaussian and Diffused-gamma Feature Extraction Applied to Sparse High Dimensional Spatio-Temporal Data by Local Modeling. (Submitted)
 :::
 
-## Near Submission
+::: {#ref-frady2024bayesian .csl-entry}
+**Frady, G.**, Dey, D. K., Mohammed, S. (2024). Bayesian Feature Extraction Using Spatio-Temporally Structured Gaussian and Diffused-gamma Prior. (Under Preparation)
+:::
 
-::: {#ref-godoy2022growlmazing .csl-entry}
-Godoy, C., & **Hernandez, K.** (2022). Growlmazing paper we wrote. *Meow
-Journal*, *000*, 0--0.
+::: {#ref-baker2023using .csl-entry}
+Baker, W. L., Sharma, M., Cohen, A., Ouwens, M., Christoph, M. J., Koch, B., Moore, T. E., **Frady, G.**, Coleman, C. I. (2023). Using 30-day modified rankin scale score to predict 90-day score in patients with intracranial hemorrhage: derivation and validation of prediction model. (Under Review)
 :::
 :::
+
+
+

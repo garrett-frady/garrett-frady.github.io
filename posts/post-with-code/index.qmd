@@ -1,9 +1,10 @@
 ---
-title: "Post With Code"
+title: "Improving Firefighter Navigation with Haptic Feedback"
 author: "Harlow Malloc"
-date: "2023-09-09"
-categories: [news, code, analysis]
+# date: "2023-09-09"
+categories: [graphs, code, analysis]
 image: "image.jpg"
 ---
 
-This is a post with executable code.
+```{r}
+rnorm(5, 0, 1)

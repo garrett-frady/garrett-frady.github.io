@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -164,11 +198,102 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I have worked as a consultant with Statistical Consulting Services (SCS) at the University of Connecticut since July, 2022. For more details surrounding SCS and our mission, please visit <a href="https://statsconsulting.uconn.edu/" class="uri">https://statsconsulting.uconn.edu/</a>. In this position, I have collaborated with a variety of students and faculty from departments such as Kinesiology, Psychology, Civil and Environmental Engineering, Physiology and Neurobiology, Speech and Language, School of Pharmacy, and the School of Public Health. I have also had the experience of working with external clients such as Hartford HealthCare. These collaborative experiences have elevated my capabilities as a researcher, enhanced my proficiency in R, facilitated exploration into various statistical coding languages, and enriched my skills as an educator.</p>
+<p>I have worked as a consultant with Statistical Consulting Services (SCS) at the University of Connecticut since July, 2022. As of August, 2023, I have held the title of SCS Administrative Specialist. For more details surrounding SCS and our mission, please visit <a href="https://statsconsulting.uconn.edu/" class="uri">https://statsconsulting.uconn.edu/</a>. In this position, I have collaborated with a variety of students and faculty from departments such as Kinesiology, Psychology, Civil and Environmental Engineering, Physiology and Neurobiology, Speech and Language, School of Pharmacy, School of Social Work, and School of Public Health. I have also had the experience of working with external clients such as Hartford HealthCare. Working under Director of SCS, Dr.&nbsp;Timothy E. Moore, and these collaborative experiences have elevated my capabilities as a researcher, enhanced my proficiency in R, facilitated exploration into various statistical coding languages, and enriched my skills as an educator.</p>
 <section id="projects" class="level1">
 <h1>Projects</h1>
+<p>All projects are overseen by Dr.&nbsp;Timothy E. Moore.</p>
+<section id="improving-firefighter-navigation-with-haptic-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="improving-firefighter-navigation-with-haptic-feedback">Improving Firefighter Navigation with Haptic Feedback</h2>
+<p>Primary Contact: Andrew Slater, Ph.D.&nbsp;Candidate (Dept. of Biomedical Engineering)</p>
+<p>Methods: We fit a logistic regression model on the binary response variable for success/failure. We include two fixed effects covariates for path and trial_type (belt vs.&nbsp;no belt), and include an interaction term between the two fixed effects covariates. We also include a random effect for ID, accounting for the fact that we have repeated observations on individual firefighters. By observing the fitted models, we are able to determine which covariates have a significant impact on the response (success/failure).</p>
+<p>Conducted two experiments:</p>
+<section id="experiment-1" class="level4">
+<h4 class="anchored" data-anchor-id="experiment-1">Experiment 1</h4>
+<ul>
+<li><p>Aim: Determine if NHC communication can outperform a pass-alarm in navigating to a disabled firefighter.</p></li>
+<li><p>Tasks:</p>
+<ul>
+<li><p>navigate to a specific location withing the environment either while seeking out a clearly audible PASS alarm, or while being guided by the V-T Belt system</p></li>
+<li><p>determine the bearing to the target point at start of trail</p></li>
+<li><p>determine bearing to start point at end of trial</p></li>
+</ul></li>
+<li><p>Failure: timeout before reaching target location</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># package to examine the estimated marginal means</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimated marginal means</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>em_glmm1 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(glmm1, <span class="sc">~</span> trial_type <span class="sc">|</span> path)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ip_glmm1 <span class="ot">&lt;-</span> <span class="fu">emmip</span>(em_glmm1, <span class="sc">~</span> trial_type <span class="sc">|</span> path, <span class="at">type =</span> <span class="st">"response"</span>, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">bias.adjust =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ip_glmm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="stat_consulting_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="experiment-2" class="level4">
+<h4 class="anchored" data-anchor-id="experiment-2">Experiment 2</h4>
+<ul>
+<li><p>Aim: Determine if NHC can better route an egress path for firefighters over traditional methods.</p></li>
+<li><p>Tasks:</p>
+<ul>
+<li><p>firefighter led through the building and asked to retrace steps back to starting location using tradition methods, or firefighter placed at the return starting point and used the V-Tbelt</p></li>
+<li><p>determine the bearing to the target point at start of trail</p></li>
+<li><p>determine bearing to start point at end of trial</p></li>
+</ul></li>
+<li><p>Failure: timeout before reaching target or off return path for more than 20 seconds</p></li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># package to examine the estimated marginal means</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimated marginal means</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>em_glmm2 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(glmm2, <span class="sc">~</span> trial_type <span class="sc">|</span> path)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ip_glmm2 <span class="ot">&lt;-</span> <span class="fu">emmip</span>(em_glmm2, <span class="sc">~</span> trial_type <span class="sc">|</span> path, <span class="at">type =</span> <span class="st">"response"</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">bias.adjust =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ip_glmm2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="stat_consulting_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bidirectional-relationship-between-food-security-and-smoking" class="level2">
+<h2 class="anchored" data-anchor-id="bidirectional-relationship-between-food-security-and-smoking">Bidirectional Relationship Between Food Security and Smoking</h2>
+<p>Primary Contact: Jon Phillips, Ph.D.&nbsp;(Assist. Prof., UConn School of Social Work)</p>
+<p>Method: Cross-lagged panel models with covariates</p>
+</section>
+<section id="analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients" class="level2">
+<h2 class="anchored" data-anchor-id="analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients">Analyzing the Impact of Pacemaker Status on the Survival of Heart Transplant Patients</h2>
+<p>Primary Contact: Cesar Rodrigo Zoni, Postdoctoral Researcher (UCONN Health)</p>
+<p>Method: Survival analysis utilizing multi-state modeling of time-to-event data</p>
+</section>
+<section id="comparing-outcomes-in-high-risk-populations-before-and-after-adjusting-allocation-and-prioritization-of-organ-transplants" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-outcomes-in-high-risk-populations-before-and-after-adjusting-allocation-and-prioritization-of-organ-transplants">Comparing Outcomes in High-Risk Populations Before and After Adjusting Allocation and Prioritization of Organ Transplants</h2>
+<p>Primary Contact: William L. Baker, Pharm.D. (Assoc. Prof., Dept. of Pharmacy Practice)</p>
+<p>Method: Multiple imputation by Fine and Gray competing risk models</p>
+</section>
+<section id="using-30-day-modified-rankin-scale-score-to-predict-90-day-score-in-patients-with-intracranial-hemorrhage-derivation-and-validation-of-prediction-model" class="level2">
+<h2 class="anchored" data-anchor-id="using-30-day-modified-rankin-scale-score-to-predict-90-day-score-in-patients-with-intracranial-hemorrhage-derivation-and-validation-of-prediction-model">Using 30-Day Modified Rankin Scale Score to Predict 90-Day Score in Patients with Intracranial Hemorrhage: Derivation and Validation of Prediction Model</h2>
+<p>Primary Contact: William L. Baker, Pharm.D. (Assoc. Prof., Dept. of Pharmacy Practice)</p>
+<p>Methods: Ordinal beta regression, mortality risk score models</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

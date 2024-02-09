@@ -1,0 +1,15 @@
+{
+  "hash": "26e106a5563a7565c3c3c02d44679ccb",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Improving Firefighter Navigation with Haptic Feedback\"\nauthor: \"Harlow Malloc\"\ndate: \"2023-09-09\"\ncategories: [graphs, code, analysis]\nimage: \"image.jpg\"\n---\n\n::: {.cell}\n\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

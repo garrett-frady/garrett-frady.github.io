@@ -1,0 +1,807 @@
+---
+title: "Andy's Project Report"
+date: "`r Sys.Date()`"
+author: "Garrett Frady, Ziyang Wang & Tim Moore"
+output:
+  rmdformats::downcute:
+    code_folding: hide
+    self_contained: true
+    default_style: "light"
+    downcute_theme: "default"
+---
+
+
+```{r setup, include=FALSE}
+## Global options
+knitr::opts_chunk$set(cache = TRUE,
+                      echo = T,
+                      eval = T,
+                      warning = F,
+                      message = F)
+
+library(readxl)
+library(DHARMa)
+library(performance)
+library(emmeans)
+library(car)
+library(ggeffects)
+library(kableExtra)
+library(ggplot2)
+library(dplyr)
+library(lmtest)
+# 
+# library(gtsummary)
+# library(tidyr)
+# library(cowplot)
+
+# library(stringr)
+# library(MASS)
+# library(MLmetrics)
+# library(leaps)
+# library(MPV)
+```
+
+```{r}
+############################### Data setup #####################################
+
+library(readxl) # necessary package to read in .xlsx file
+# read in the data
+dat1 <- read_xlsx("FPL Consolidated Trial Data_update.xlsx", sheet = 1, 
+                  na = "NA")
+
+dat1 <- janitor::clean_names(dat1) 
+
+# add an additional column denoting success as a binary variable; 0 = failure and 1 = success
+dat1$success.bin <- ifelse(dat1$success=="yes", 1, 0)
+```
+
+# Generalized Linear Mixed Effects Models for Success
+
+```{r}
+#------------------------------------------------------------------------------#
+# Generalized Linear Mixed Effects Models - Success as Binary Response Variable #
+
+# in this section, we fit logistic regression models with trial_type, path, ...
+# ... and the interaction between trial_type and path as fixed effects; we ...
+# ... also include participant_number as a random effects term. 
+
+##### Fit the models #####
+library(glmmTMB) # linear and generalized mixed-effects models (with extensions) 
+library(dplyr) # package to use piping for data manipulation
+
+# Experiment 1
+glmm1 <- glmmTMB(success.bin ~ trial_type*path + (1|participant_number),
+                 data = dat1 %>% filter(experiment==1), 
+                 family = binomial)
+
+# Experiment 2
+glmm2 <- glmmTMB(success.bin ~ trial_type*path + (1|participant_number),
+                 data = dat1 %>% filter(experiment==2), 
+                 family = binomial)
+```
+
+## Visualization
+
+```{r}
+##### Visualization #####
+
+library(ggplot2) # package for visualization
+
+# tables for success
+with(dat1 %>% filter(experiment==1), table(success, trial_type, path))
+with(dat1 %>% filter(experiment==2), table(success, trial_type, path))
+
+library(gtsummary) # used to get stratified table
+# stratified table for success separated by trial_type
+dat1 %>% select(success, trial_type, path) %>%
+  tbl_strata(strata = path, 
+             .tbl_fun = . %>%
+               tbl_summary(by = trial_type))
+
+# how many individuals success changed when wearing a belt?
+# how many stayed the same?
+library(tidyr) # data manipulation package
+dat1.w1 <- dat1 %>% filter(experiment==1) %>% select(participant_number, trial_type,path,
+                                          success.bin) %>%
+  pivot_wider(id_cols  = c(participant_number, path), names_from = trial_type, 
+              values_from = success.bin)
+table("yes-no"=dat1.w1$yes_belt-dat1.w1$no_belt, dat1.w1$path)
+# -1 means failed with belt success without
+# 0 means stayed the same (either succeeded or failed both) NOTE: noone failed both
+# 1 means success with belt, failed without
+
+dat1.w2 <- dat1 %>% filter(experiment==2) %>% select(participant_number, trial_type,path,
+                                                     success.bin) %>%
+  pivot_wider(id_cols  = c(participant_number, path), names_from = trial_type, 
+              values_from = success.bin)
+table("yes-no"=dat1.w2$yes_belt-dat1.w2$no_belt, dat1.w1$path)
+# -1 means failed with belt success without
+# 0 means stayed the same (either succeeded or failed both) NOTE some failed both
+# 1 means success with belt, failed without
+
+```
+
+### Success Plotting
+
+```{r}
+# Success Plotting
+ggplot(data = dat1 %>% filter(experiment==1), 
+       aes(x=trial_type, y = success.bin, color = trial_type), size = 3)+
+  geom_jitter(width = 0.5, height=0.05)+
+  facet_grid(~path)
+
+ggplot(data = dat1 %>% filter(experiment==2), 
+       aes(x=trial_type, y = success.bin, color = trial_type), size = 3)+
+  geom_jitter(width = 0.5, height=0.05)+
+  facet_grid(~path)
+```
+
+### Alternative Plotting
+
+```{r}
+# Alternative plotting
+ggplot(data = dat1 %>% filter(experiment==1), 
+       aes(x=trial_type, y = success.bin, color = trial_type), size = 3)+
+  geom_point()+
+  geom_line(aes(group = interaction(participant_number)))+
+  facet_wrap(path~participant_number)
+
+ggplot(data = dat1 %>% filter(experiment==2), 
+       aes(x=trial_type, y = success.bin, color = trial_type), size = 3)+
+  geom_point()+
+  geom_line(aes(group = interaction(participant_number)))+
+  facet_wrap(path~participant_number)
+```
+
+```{r}
+# not sure if we will include these plots or not
+# ggplot(data =dat1 , aes( x= trial_across_both_experiments, y = success.bin))+
+#   geom_point(size = 4, aes( color = trial_type, shape = path))+
+#   geom_line(aes(group = participant_number), lwd =1.2)+
+#   facet_wrap(~participant_number)
+# 
+# ggplot(data =dat1 %>% filter(trial_type=="no_belt"), aes( x= trial_across_both_experiments, y = success.bin))+
+#   geom_point(size = 4, aes( color = success, shape = path))+
+#   geom_line(aes(group = participant_number), lwd =1.2)+
+#   facet_wrap(~participant_number)
+# 
+# ggplot(data =dat1 %>% filter(trial_type=="yes_belt"), aes( x= trial_across_both_experiments, y = success.bin))+
+#   geom_point(size = 4, aes( color = success, shape = path))+
+#   geom_line(aes(group = participant_number), lwd =1.2)+
+#   facet_wrap(~participant_number)
+```
+
+## Statistical Methods and Justification
+
+Just a matter of writing out the details of the models and why we chose these models over other potential models. 
+
+## Outcomes 
+
+### Model Summary for Experiment 1
+
+Tables containing summary statistics for the model from experiment 1. First table is for fixed effects, the second table is for random effects, and the third table is the variance covariance matrix. 
+
+```{r}
+# summary of the fit for mod1_int
+sum1 <- summary(glmm1)
+# create data frames for each table in sum1 above in order to create nice output
+sum1_fix <- as.data.frame(sum1$coefficients$cond)
+sum1_ran <- as.data.frame(sum1$varcor$cond)
+#sum1_varcov <- as.data.frame(as.matrix(sum1$vcov))
+
+# fixed effects
+sum1_fix
+# random effects
+sum1_ran
+# variance-covariance matrix
+#sum1_varcov
+sum1$vcov
+```
+
+### Model Summary for Experiment 2
+
+Tables containing summary statistics for the model from experiment 1. First table is for fixed effects, the second table is for random effects, and the third table is the variance covariance matrix. 
+
+```{r}
+# summary of the fit for mod1_int
+sum2 <- summary(glmm2)
+
+# create data frames for each table in sum1 above in order to create nice output
+sum2_fix <- as.data.frame(sum2$coefficients$cond)
+sum2_ran <- as.data.frame(sum2$varcor$cond)
+sum2_varcov <- as.data.frame(as.matrix(sum2$vcov)) 
+
+# fixed effects
+sum2_fix
+# random effects
+sum2_ran
+# variance-covariance matrix
+sum2_varcov
+```
+
+## Statistical Inference and Estimation
+
+### Estimated Marginal Means 
+
+Table and plot of estimated marginal means over the different paths for experiment 1. 
+
+```{r}
+# package to examine the estimated marginal means
+library(emmeans)
+# estimated marginal means
+em_glmm1 <- emmeans(glmm1, ~ trial_type | path)
+em_glmm1
+ip_glmm1 <- emmip(em_glmm1, ~ trial_type | path, type = "response", bias.adjust = TRUE)
+ip_glmm1
+```
+
+Table and plot of estimated marginal means over the different paths for experiment 2.  
+
+```{r}
+# estimated marginal means
+em_glmm2 <- emmeans(glmm2, ~ trial_type | path)
+em_glmm2
+ip_glmm2 <- emmip(em_glmm2, ~ trial_type | path, type = "response", bias.adjust = TRUE)
+ip_glmm2
+```
+
+### Prediction Probabilities
+
+Table and plot of prediction probabilities over the different types for experiment 1, separated by trial_type.
+
+```{r}
+# package for prediction probabilities
+library(ggeffects)
+# plot of prediction probabilities for experiment 1
+pred_glmm1 <- ggpredict(glmm1, terms = c("trial_type", "path"))
+pred_glmm1 %>% data.frame()
+plot(pred_glmm1)
+```
+
+Table and plot of prediction probabilities over the different types for experiment 2, separated by trial_type.
+
+```{r}
+# plot of prediction probabilities for experiment 2
+pred_glmm2 <- ggpredict(glmm2, terms = c("trial_type", "path"))
+pred_glmm2 %>% data.frame()
+plot(pred_glmm2)
+```
+
+## Model Diagnostics
+
+Below is a plot of the simulated residuals from the glmm model and a plot to check posterior predictions for experiment 1. 
+
+```{r}
+# Model Diagnostics 
+library(DHARMa) # package to create interpretable residuals for visualization
+
+# Experiment 1
+
+# residual diagnostic plots
+plot(simulateResiduals(glmm1))
+
+# package to check the posterior predictive power for different frequentist models
+library(performance)
+check_posterior_predictions(glmm1, 100)
+```
+
+Below is a plot of the simulated residuals from the glmm model and a plot to check posterior predictions for experiment 2. 
+
+```{r}
+# Model Diagnostics 
+
+# Experiment 1
+
+# residual diagnostic plots
+plot(simulateResiduals(glmm2))
+
+# check posterior predictive power
+check_posterior_predictions(glmm2, 100)
+```
+
+# Paired t-tests - Path Distance Traveled
+
+Here, we are performing paired t-tests on the group means of path distance traveled for the with belt group and the without belt group. Tests ar performed separately for experiments as well as for paths within each experiment.
+
+```{r}
+#------------------------------------------------------------------------------#
+###### Paired t-tests for Difference in Means of Path Distance Traveled #######
+
+########################## data setup ##############################
+
+# determining the pairs of participants and paths which result in a success...
+# ... both with the belt and without the belt
+same_res <- dat1 %>% group_by(participant_number, path) %>% 
+  summarise(count_succ = sum(success.bin))
+
+# adding count_succ to the original data, and selecting the columns of interest
+dat2 <- left_join(dat1, same_res, by = c("participant_number", "path")) %>%
+  select(participant_number, path, trial_type, experiment, count_succ, 
+         success.bin, path_distance_meters, time_seconds)
+
+# filter data to only consider successful runs both with and without the belt
+succ_dat <- dat2 %>% filter(count_succ == 2)
+
+# select only the columns we need for the t test on path distance traveled
+succ_dat_path <- succ_dat %>% select(path_distance_meters, trial_type, experiment, path)
+
+###### separate the data by path and trial_type ######
+
+# Experiment 1
+# path distance for with the belt
+yes_belt_path_dist11 <- as.data.frame(succ_dat_path %>% 
+                                        filter(trial_type == "yes_belt", experiment == 1,
+                                               path == "E1P1") %>%
+                                        select(path_distance_meters))[, 1]
+yes_belt_path_dist12 <- as.data.frame(succ_dat_path %>% 
+                                        filter(trial_type == "yes_belt", experiment == 1,
+                                               path == "E1P2") %>%
+                                        select(path_distance_meters))[, 1]
+yes_belt_path_dist13 <- as.data.frame(succ_dat_path %>% 
+                                        filter(trial_type == "yes_belt", experiment == 1,
+                                               path == "E1P3") %>%
+                                        select(path_distance_meters))[, 1]
+
+# path distance for without the belt 
+no_belt_path_dist11 <- as.data.frame(succ_dat_path %>% 
+                                      filter(trial_type == "no_belt", experiment == 1, 
+                                             path == "E1P1") %>%
+                                      select(path_distance_meters))[, 1]
+no_belt_path_dist12 <- as.data.frame(succ_dat_path %>% 
+                                      filter(trial_type == "no_belt", experiment == 1, 
+                                             path == "E1P2") %>%
+                                      select(path_distance_meters))[, 1]
+no_belt_path_dist13 <- as.data.frame(succ_dat_path %>% 
+                                      filter(trial_type == "no_belt", experiment == 1,
+                                             path == "E1P3") %>%
+                                      select(path_distance_meters))[, 1]
+
+# Experiment 2
+# path distance for with the belt 
+yes_belt_path_dist21 <- as.data.frame(succ_dat_path %>% 
+                                       filter(trial_type == "yes_belt", experiment == 2,
+                                              path == "E2P1") %>%
+                                       select(path_distance_meters))[, 1]
+yes_belt_path_dist22 <- as.data.frame(succ_dat_path %>% 
+                                       filter(trial_type == "yes_belt", experiment == 2,
+                                              path == "E2P2") %>%
+                                       select(path_distance_meters))[, 1]
+yes_belt_path_dist23 <- as.data.frame(succ_dat_path %>% 
+                                       filter(trial_type == "yes_belt", experiment == 2,
+                                              path == "E2P3") %>%
+                                       select(path_distance_meters))[, 1]
+
+# path distance for without the belt
+no_belt_path_dist21 <- as.data.frame(succ_dat_path %>% 
+                                       filter(trial_type == "no_belt", experiment == 2,
+                                              path == "E2P1") %>%
+                                       select(path_distance_meters))[, 1]
+no_belt_path_dist22 <- as.data.frame(succ_dat_path %>% 
+                                       filter(trial_type == "no_belt", experiment == 2,
+                                              path == "E2P2") %>%
+                                       select(path_distance_meters))[, 1]
+no_belt_path_dist23 <- as.data.frame(succ_dat_path %>% 
+                                       filter(trial_type == "no_belt", experiment == 2,
+                                              path == "E2P3") %>%
+                                       select(path_distance_meters))[, 1]
+
+```
+
+## Visualization
+
+This section consists of plots to visualize the change in path distance traveled between the with belt group and without belt group, in each of the different paths in the two experiments.
+
+```{r}
+# visualizing path distance traveled for the different paths in different experiments
+# adjust these plots below for the data conditioned on success
+ggplot(data = dat1 %>% filter(experiment==1), aes(x = trial_type, 
+                        y = path_distance_meters))+
+  geom_boxplot()+
+  geom_point( aes(color = path, shape = success), size = 3)+
+  geom_line(aes(color = path, group = path))+
+  facet_wrap(~participant_number, scales = "free_y")
+
+ggplot(data = dat1 %>% filter(success=="yes", experiment==1), 
+       aes(x = interaction(trial_type,path), 
+           y = path_distance_meters))+
+  facet_wrap(~experiment)+
+  geom_boxplot()+
+  geom_jitter(width = 0.1, height = 0, aes(color = path))+
+  theme(axis.text.x=element_text(angle = 90))
+
+ggplot(data = dat1 %>% filter(experiment==2), aes(x = trial_type, 
+                        y = path_distance_meters))+
+  geom_boxplot()+
+  geom_point( aes(color = path, shape = success), size = 3)+
+  geom_line(aes(color = path, group = path))+
+  facet_wrap(~participant_number, scales = "free_y")
+
+ggplot(data = dat1 %>% filter(success=="yes", experiment==2), 
+       aes(x = interaction(trial_type,path), 
+           y = path_distance_meters))+
+  facet_wrap(~experiment)+
+  geom_boxplot()+
+  geom_jitter(width = 0.1, height = 0, aes(color = path))+
+  theme(axis.text.x=element_text(angle = 90))
+
+ggplot(data = dat1 %>% filter(success=="yes"), 
+       aes(x = interaction(trial_type), 
+           y = path_distance_meters))+
+  facet_wrap(~experiment)+
+  geom_boxplot()+
+  geom_jitter(width = 0.1, height = 0, aes(color = trial_type))+
+  theme(axis.text.x=element_text(angle = 90))
+```
+
+## Statistical Methods and Explanation
+
+The reason for choosing a paired t-test is due to the fact that two populations are dependent as it is the same group of people in the group with the belt and the group without the belt. We are running these tests by conditioning on success and separating by path in each of the two experiments. Since a paired test requires equal sample sizes from the two samples, we can only consider pairs of trials where the individual completed the same path both with and without the belt. 
+
+The null hypothesis is that there is no significant difference in group means, and the alternative is that there is a significant difference in the group means. Thus, small p-values (generally p-value < 0.05) imply that we reject the null and may conclude that there is sufficient evidence to conclude there is a significant difference in group means. Otherwise, we are unable to conclude that there is a significant difference between group means. 
+
+## Outcomes
+
+Results from the paired t-tests for experiment 1. From top to bottom, we see the results from path 1, then path 2, and then path 3. 
+
+```{r}
+# run the paired t tests for each path in experiment 1 separately
+t.test(yes_belt_path_dist11, no_belt_path_dist11, paired = TRUE)
+t.test(yes_belt_path_dist12, no_belt_path_dist12, paired = TRUE)
+t.test(yes_belt_path_dist13, no_belt_path_dist13, paired = TRUE)
+```
+
+Results from the paired t-tests for experiment 2. From top to bottom, we see the results from path 1, then path 2, and then path 3. 
+
+```{r}
+# run the paired t tests for each path in experiment 2 separately
+t.test(yes_belt_path_dist21, no_belt_path_dist21, paired = TRUE)
+t.test(yes_belt_path_dist22, no_belt_path_dist22, paired = TRUE)
+t.test(yes_belt_path_dist23, no_belt_path_dist23, paired = TRUE)
+```
+
+## Statistical Inference and Estimation
+
+Need to think about what goes here later. 
+
+## Model Diagnostics
+
+Will fill this in later after thinking about what to include. 
+
+# Paired t-tests - Time Spent
+
+Here, we are performing paired t-tests on the group means of time spent for the with belt group and the without belt group. Tests ar performed separately for experiments as well as for paths within each experiment.
+
+```{r}
+#------------------------------------------------------------------------------#
+############ Paired t-tests for Difference in Means of Time Spent #############
+
+########################## data setup ##############################
+
+# select only the columns we need for the t test on time spent
+succ_dat_time <- succ_dat %>% select(time_seconds, trial_type, experiment, path)
+
+# time spent for with the belt for experiment 1
+yes_belt_time11 <- as.data.frame(succ_dat_time %>% 
+                                   filter(trial_type == "yes_belt", experiment == 1, 
+                                          path == "E1P1") %>%
+                                   select(time_seconds))[, 1]
+yes_belt_time12 <- as.data.frame(succ_dat_time %>% 
+                                  filter(trial_type == "yes_belt", experiment == 1, 
+                                         path == "E1P2") %>%
+                                  select(time_seconds))[, 1]
+yes_belt_time13 <- as.data.frame(succ_dat_time %>% 
+                                  filter(trial_type == "yes_belt", experiment == 1, 
+                                         path == "E1P3") %>%
+                                  select(time_seconds))[, 1]
+
+# path distance for without the belt for experiment 1
+no_belt_time11 <- as.data.frame(succ_dat_time %>% 
+                                  filter(trial_type == "no_belt", experiment == 1, 
+                                         path == "E1P1") %>%
+                                  select(time_seconds))[, 1]
+no_belt_time12 <- as.data.frame(succ_dat_time %>% 
+                                 filter(trial_type == "no_belt", experiment == 1, 
+                                        path == "E1P2") %>%
+                                 select(time_seconds))[, 1]
+no_belt_time13 <- as.data.frame(succ_dat_time %>% 
+                                 filter(trial_type == "no_belt", experiment == 1, 
+                                        path == "E1P3") %>%
+                                 select(time_seconds))[, 1]
+
+# time spent for with the belt for experiment 2
+yes_belt_time21 <- as.data.frame(succ_dat_time %>% 
+                                   filter(trial_type == "yes_belt", experiment == 2, 
+                                          path == "E2P1") %>%
+                                   select(time_seconds))[, 1]
+yes_belt_time22 <- as.data.frame(succ_dat_time %>% 
+                                  filter(trial_type == "yes_belt", experiment == 2, 
+                                         path == "E2P2") %>%
+                                  select(time_seconds))[, 1]
+yes_belt_time23 <- as.data.frame(succ_dat_time %>% 
+                                  filter(trial_type == "yes_belt", experiment == 2, 
+                                         path == "E2P3") %>%
+                                  select(time_seconds))[, 1]
+
+# path distance for without the belt for experiment 2
+no_belt_time21 <- as.data.frame(succ_dat_time %>% 
+                                  filter(trial_type == "no_belt", experiment == 2, 
+                                         path == "E2P1") %>%
+                                  select(time_seconds))[, 1]
+no_belt_time22 <- as.data.frame(succ_dat_time %>% 
+                                 filter(trial_type == "no_belt", experiment == 2, 
+                                        path == "E2P2") %>%
+                                 select(time_seconds))[, 1]
+no_belt_time23 <- as.data.frame(succ_dat_time %>% 
+                                 filter(trial_type == "no_belt", experiment == 2, 
+                                        path == "E2P3") %>%
+                                 select(time_seconds))[, 1]
+
+```
+
+## Visualization
+
+This section consists of plots to visualize the change in time spent between the with belt group and without belt group, in each of the different paths in the two experiments.
+
+```{r}
+# visualizing path distance traveled for the different paths in different experiments
+# adjust these plots below for the data conditioned on success
+ggplot(data = dat1 %>% filter(experiment==1), aes(x = trial_type, 
+                        y = time_seconds))+
+  geom_boxplot()+
+  geom_point( aes(color = path, shape = success), size = 3)+
+  geom_line(aes(color = path, group = path))+
+  facet_wrap(~participant_number, scales = "free_y")
+
+ggplot(data = dat1 %>% filter(success=="yes", experiment==1), 
+       aes(x = interaction(trial_type,path), 
+           y = time_seconds))+
+  facet_wrap(~experiment)+
+  geom_boxplot()+
+  geom_jitter(width = 0.1, height = 0, aes(color = path))+
+  theme(axis.text.x=element_text(angle = 90))
+
+ggplot(data = dat1 %>% filter(experiment==2), aes(x = trial_type, 
+                        y = time_seconds))+
+  geom_boxplot()+
+  geom_point( aes(color = path, shape = success), size = 3)+
+  geom_line(aes(color = path, group = path))+
+  facet_wrap(~participant_number, scales = "free_y")
+
+ggplot(data = dat1 %>% filter(success=="yes", experiment==2), 
+       aes(x = interaction(trial_type,path), 
+           y = time_seconds))+
+  facet_wrap(~experiment)+
+  geom_boxplot()+
+  geom_jitter(width = 0.1, height = 0, aes(color = path))+
+  theme(axis.text.x=element_text(angle = 90))
+
+ggplot(data = dat1 %>% filter(success=="yes"), 
+       aes(x = interaction(trial_type), 
+           y = time_seconds))+
+  facet_wrap(~experiment)+
+  geom_boxplot()+
+  geom_jitter(width = 0.1, height = 0, aes(color = trial_type))+
+  theme(axis.text.x=element_text(angle = 90))
+```
+
+## Statistical Methods and Explanation
+
+The reason for choosing a paired t-test is due to the fact that two populations are dependent as it is the same group of people in the group with the belt and the group without the belt. We are running these tests by conditioning on success and separating by path in each of the two experiments. Since a paired test requires equal sample sizes from the two samples, we can only consider pairs of trials where the individual completed the same path both with and without the belt. 
+
+The null hypothesis is that there is no significant difference in group means, and the alternative is that there is a significant difference in the group means. Thus, small p-values (generally p-value < 0.05) imply that we reject the null and may conclude that there is sufficient evidence to conclude there is a significant difference in group means. Otherwise, we are unable to conclude that there is a significant difference between group means. 
+
+## Outcomes
+
+Results from the paired t-tests for experiment 1. From top to bottom, we see the results from path 1, then path 2, and then path 3. 
+
+```{r}
+# run the paired t tests for each path in experiment 1 separately
+t.test(yes_belt_time11, no_belt_time11, paired = TRUE)
+t.test(yes_belt_time12, no_belt_time12, paired = TRUE)
+t.test(yes_belt_time13, no_belt_time13, paired = TRUE)
+```
+
+Results from the paired t-tests for experiment 2. From top to bottom, we see the results from path 1, then path 2, and then path 3. 
+
+```{r}
+# run the paired t tests for each path in experiment 2 separately
+t.test(yes_belt_time21, no_belt_time21, paired = TRUE)
+t.test(yes_belt_time22, no_belt_time22, paired = TRUE)
+t.test(yes_belt_time23, no_belt_time23, paired = TRUE)
+```
+
+## Statistical Inference and Estimation
+
+Need to think about what goes here later. 
+
+## Model Diagnostics
+
+Will fill this in later after thinking about what to include.
+
+# Start Bearing
+
+## Visualization
+
+```{r}
+library(cowplot) # for grids
+
+# Experiment 1 Path 1
+start_nobelt_p <-
+ggplot(data = dat1 %>% filter(path=="E1P1"), 
+         aes(x = start_bearing_no_belt, y =1))+
+  geom_point()+
+  geom_point(aes(x = 346, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+start_belt_p <-
+ggplot(data = dat1 %>% filter(path=="E1P1"), 
+         aes(x = start_bearing_with_belt, y =1))+
+  geom_point()+
+  geom_point(aes(x = 346, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+plot_grid(start_nobelt_p, start_belt_p, ncol = 2, 
+          labels = "E1P1")
+```
+
+```{r}
+# Experiment 1 Path 2
+start_nobelt_p <-
+ggplot(data = dat1 %>% filter(path=="E1P2"), 
+         aes(x = `start_bearing_no_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 143, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+start_belt_p <-
+ggplot(data = dat1 %>% filter(path=="E1P2"), 
+         aes(x = `start_bearing_with_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 143, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+plot_grid(start_nobelt_p, start_belt_p, ncol = 2, 
+          labels = "E1P2")
+```
+
+```{r}
+# Experiment 1 Path 3
+start_nobelt_p <-
+ggplot(data = dat1 %>% filter(path=="E1P3"), 
+         aes(x = `start_bearing_no_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 302, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+start_belt_p <-
+ggplot(data = dat1 %>% filter(path=="E1P3"), 
+         aes(x = `start_bearing_with_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 302, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+plot_grid(start_nobelt_p, start_belt_p, ncol = 2, 
+          labels = "E1P3")
+```
+
+```{r}
+# Experiment 2 Path 1
+start_nobelt_p <-
+ggplot(data = dat1 %>% filter(path=="E2P1"), 
+         aes(x = `start_bearing_no_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 115, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+start_belt_p <-
+ggplot(data = dat1 %>% filter(path=="E2P1"), 
+         aes(x = `start_bearing_with_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 115, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+plot_grid(start_nobelt_p, start_belt_p, ncol = 2, 
+          labels = "E2P1")
+```
+
+```{r}
+# Experiment 2 Path 2
+start_nobelt_p <-
+ggplot(data = dat1 %>% filter(path=="E2P2"), 
+         aes(x = `start_bearing_no_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 97, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+start_belt_p <-
+ggplot(data = dat1 %>% filter(path=="E2P2"), 
+         aes(x = `start_bearing_with_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 97, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+plot_grid(start_nobelt_p, start_belt_p, ncol = 2, 
+          labels = "E2P2")
+```
+
+```{r}
+# Experiment 2 Path 3
+start_nobelt_p <-
+ggplot(data = dat1 %>% filter(path=="E2P3"), 
+         aes(x = `start_bearing_no_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 358, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+start_belt_p <-
+ggplot(data = dat1 %>% filter(path=="E2P3"), 
+         aes(x = `start_bearing_with_belt`, y =1))+
+  geom_point()+
+  geom_point(aes(x = 358, y = 1), size= 3, color = "red")+
+  scale_x_continuous(breaks=c(0, 90, 180, 270, 360), limits = c(0, 360))+
+  coord_polar(start = 0)+
+  theme_bw()
+
+plot_grid(start_nobelt_p, start_belt_p, ncol = 2, 
+          labels = "E2P3")
+```
+
+## Statistical Methods and Explanation
+
+## Outcome
+
+## Statistical Inference and Estimation
+
+## Model Diagnostics
+
+
+
+# End Bearing
+
+## Visualization
+
+## Statistical Methods and Explanation
+
+## Outcome
+
+## Statistical Inference and Estimation
+
+## Model Diagnostics
+
+
+
+# Perception 
+
+## Visualization
+
+## Statistical Methods and Explanation
+
+## Outcome
+
+## Statistical Inference and Estimation
+
+## Model Diagnostics
+
+

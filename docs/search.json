@@ -2,37 +2,37 @@
   {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
+    "title": "Bidirectional Relationship Between Food Security and Smoking",
     "section": "",
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   },
   {
     "objectID": "blog.html",
     "href": "blog.html",
-    "title": "how do you wanna call your blog?",
+    "title": "Statisticial Consulting",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nSep 9, 2023\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nSep 6, 2023\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Bidirectional Relationship Between Food Security and Smoking\n\n\n\n\n\n\ngraph\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nTristan O’Malley\n\n\n\n\n\n\n\n\n\n\n\n\nImproving Firefighter Navigation with Haptic Feedback\n\n\n\n\n\n\ngraphs\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nHarlow Malloc\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
     "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "title": "Improving Firefighter Navigation with Haptic Feedback",
     "section": "",
-    "text": "This is a post with executable code."
+    "text": "rnorm(5, 0, 1)"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Garrett Frady - PhD Candidate",
     "section": "",
-    "text": "My academic journey began at the State University of New York (SUNY) at Potsdam, where my initial focus was on basketball. However, my I enjoyed math and took calculus in high school, which prompted me to take calculus my first semester. I continued my education at Clinton Community College near my hometown, Plattsburgh, NY, earning a Math/Science AS degree while finishing my basketball career. Returning to SUNY Potsdam, I pursued double majors in math and computer science, culminating in a BA degree in both disciplines. My academic journey progressed further with the completion of a MA degree in math. The entire math department and my advisor, Dr. Cornelia Yuen, were (and are) incredible. I obtained a solid background in measure theory, abstract algebra and linear algebra, and they opened my eyes to a lot of opportunities.\nDriven by a desire for applied knowledge, I found my passion in statistics, drawn by its rapid growth in sports and other fields. Joining the statistics PhD program at the University of Connecticut (UConn) felt like a full circle moment, rooted in my family ties to the area and years of watching basketball games. My dissertation research has been under the guidance of Dr. Dipak Dey in the statistics department at UConn and co-advisor Dr. Shariq Mohammed in the biostatistics department at Boston University. Our research resides in developing Bayesian approaches for simultaneous estimation and feature extraction applied to sparse, high-dimensional spatio-temporal data. Our proposed methods are aimed at conquering the curse of high-dimensionality and computational burden experienced in modeling complex data. Leveraging a computation-efficient Bayesian feature extraction method, we construct models locally at different time points, where coefficients represent specific locations. The Gaussian and Diffused-gamma (GD) prior, which has shrinkage and selection features, is employed at each local model.\nThe GD prior, acting as a Bayesian version of the penalized loss estimator, plays a pivotal role in our methodology. Through the MAP estimator of latent vector d, we establish a proportional relationship between the MAP estimator of beta and the penalized loss estimator. We apply our methods to electroencephalography (EEG) data, aiming to analyze electrical activity between brain locations over time and predict alcohol status. Our ongoing work focuses on refining and advancing our methods, contributing to the evolving landscape of statistical methodologies."
+    "text": "My academic journey began at the State University of New York (SUNY) at Potsdam as a result of being recruited to be on the basketball team. I realized that Division III basketball was a large commitment, so I continued my education at Clinton Community College, earning a Math/Science AS degree while finishing my basketball career. Returning to SUNY Potsdam afterward, I pursued double majors in math and computer science, culminating in a BA degree in both disciplines. My academic journey progressed further with the completion of a MA degree in math. The entire math department and my advisor, Dr. Cornelia Yuen, were (and are) incredible. I obtained a solid background in measure theory, abstract algebra and linear algebra, and they opened my eyes to a lot of opportunities.\nDriven by a desire for applied knowledge, I found my passion in statistics, drawn by its rapid growth in sports and other fields. Joining the statistics PhD program at the University of Connecticut (UConn) felt like a full circle moment, rooted in my family ties to the area and years of watching basketball games. My dissertation research has been under the guidance of Dr. Dipak K. Dey in the statistics department at UConn and co-advisor Dr. Shariq Mohammed in the biostatistics department at Boston University. Our research involves developing Bayesian approaches for simultaneous estimation and feature extraction applied to sparse, high-dimensional spatio-temporal data. Our proposed methods are aimed at conquering the curse of high-dimensionality and computational burden experienced in modeling complex data. We apply our methods to electroencephalography (EEG) data, aiming to analyze electrical activity between brain locations over time and predict alcohol status. Our ongoing work focuses on refining and advancing our methods, contributing to the evolving landscape of statistical methodologies.\nIn my personal life, I enjoy spending time with family and friends. Whether it be traveling, attending live music, or playing games inside, time with family and friends is precious. Traveling to new places is one of my favorite things to do, especially new beaches and mountains. Sports have always been a major part of my life and are my biggest passion. I grew up playing basketball, baseball, soccer, football, and hockey. My favorite sports to watch are college basketball, professional football, and professional baseball. There is no better sporting event than college basketball March Madness, in my opinion. Go UConn Huskies!"
   },
   {
     "objectID": "publications.html",
     "href": "publications.html",
     "title": "Publications",
     "section": "",
-    "text": "Hernandez, K. (2023). Meowmazing paper i wrote. Meow Journal, 000, 0–0.\n\n\n\n\nGodoy, C., & Hernandez, K. (2022). Growlmazing paper we wrote. Meow Journal, 000, 0–0."
+    "text": "Publications\n\n\n\n\n\nFrady, G., Dey, D. K., Mohammed, S. (2024). Gaussian and Diffused-gamma Feature Extraction Applied to Sparse High Dimensional Spatio-Temporal Data by Local Modeling. (Submitted)\n\n\nFrady, G., Dey, D. K., Mohammed, S. (2024). Bayesian Feature Extraction Using Spatio-Temporally Structured Gaussian and Diffused-gamma Prior. (Under Preparation)\n\n\nBaker, W. L., Sharma, M., Cohen, A., Ouwens, M., Christoph, M. J., Koch, B., Moore, T. E., Frady, G., Coleman, C. I. (2023). Using 30-day modified rankin scale score to predict 90-day score in patients with intracranial hemorrhage: derivation and validation of prediction model. (Under Review)"
   },
   {
     "objectID": "publications.html#submitted",
@@ -53,14 +53,14 @@
     "href": "stat_consulting.html",
     "title": "Statistical Consulting",
     "section": "",
-    "text": "I have worked as a consultant with Statistical Consulting Services (SCS) at the University of Connecticut since July, 2022. For more details surrounding SCS and our mission, please visit https://statsconsulting.uconn.edu/. In this position, I have collaborated with a variety of students and faculty from departments such as Kinesiology, Psychology, Civil and Environmental Engineering, Physiology and Neurobiology, Speech and Language, School of Pharmacy, and the School of Public Health. I have also had the experience of working with external clients such as Hartford HealthCare. These collaborative experiences have elevated my capabilities as a researcher, enhanced my proficiency in R, facilitated exploration into various statistical coding languages, and enriched my skills as an educator.\n\nProjects"
+    "text": "I have worked as a consultant with Statistical Consulting Services (SCS) at the University of Connecticut since July, 2022. As of August, 2023, I have held the title of SCS Administrative Specialist. For more details surrounding SCS and our mission, please visit https://statsconsulting.uconn.edu/. In this position, I have collaborated with a variety of students and faculty from departments such as Kinesiology, Psychology, Civil and Environmental Engineering, Physiology and Neurobiology, Speech and Language, School of Pharmacy, School of Social Work, and School of Public Health. I have also had the experience of working with external clients such as Hartford HealthCare. Working under Director of SCS, Dr. Timothy E. Moore, and these collaborative experiences have elevated my capabilities as a researcher, enhanced my proficiency in R, facilitated exploration into various statistical coding languages, and enriched my skills as an educator."
   },
   {
     "objectID": "teaching.html",
     "href": "teaching.html",
     "title": "Teaching",
     "section": "",
-    "text": "My dedication to teaching and mentorship has been exemplified through the effort I have given to the different leadership roles I have held as a Graduate Assistant at the University of Connecticut. As the primary instructor of courses such as Introduction to Statistics and Introduction to Mathematical Statistics, the feedback I have received from student evaluations supports my level of commitment to fostering growth in others while continually advancing myself. The one-on-one tutoring positions I have held showcased my capacity to build strong connections with students and elevated my capability of providing relatable examples tailored to the individual. My experience in these roles has refined my ability to communicate statistical concepts, enhancing my adaptability to diverse learning needs. Beyond traditional teaching roles, I organized workshops introducing R to faculty and students from diverse disciplines, fostering a cross-disciplinary understanding of statistical tools.\n\nCourses - Primary Instructor\n\nIntroduction to Statistics (STAT1000Q)\n\n\nElementary Concepts of Statistics (STAT1100Q)\n\n\nIntroduction to Mathematical Statistics II (STAT3445Q)"
+    "text": "My dedication to teaching and mentorship has been exemplified through the effort I have given to the different leadership roles I have held as a Graduate Assistant at the University of Connecticut. As the primary instructor, the feedback I have received from student evaluations supports my level of commitment to fostering growth in others while continually advancing myself. The one-on-one tutoring positions I have held showcased my capacity to build strong connections with students and elevated my capability of providing relatable examples tailored to the individual. My experience in these roles has refined my ability to communicate statistical concepts, enhancing my adaptability to diverse learning needs. Furthermore, I have increased proficiency in writing through the recommendation letters I have been asked to write for students. Beyond traditional teaching roles, I organized workshops introducing R to faculty and students from diverse disciplines, fostering a cross-disciplinary understanding of statistical tools.\n\nCourses - Primary Instructor\n\nIntroduction to Statistics (STAT1000Q)\n\nSummer 2021\n\n\n\n\n\n\n\n\n\nSummer 2022\nFall 2022\n\n\n\n\n\n\n\n\n\nFall 2023\n\n\n\n\n\n\n\n\n\nSpring 2024\n\n\n\nElementary Concepts of Statistics (STAT1100Q)\n\nFall 2023\n\n\n\n\n\n\n\n\n\n\n\n\nIntroduction to Mathematical Statistics II (STAT3445Q)\n\nSpring 2022"
   },
   {
     "objectID": "teaching.html#introduction-to-statistics-stat1000",
@@ -88,6 +88,62 @@
     "href": "research_interests.html",
     "title": "Research Interest",
     "section": "",
-    "text": "My academic journey is propelled by an unwavering commitment to developing cutting-edge statistical methodologies, seeking novel approaches to address the intricacies posed by contemporary data challenges. At the forefront of my research interests is an exploration of high-dimensional datasets, particularly those imbued with intricate spatio-temporal patterns. I am captivated by the dynamic evolution of spatial structures over time, spurring my quest to forge methodologies adept at unraveling the complexity embedded in such datasets.\nWithin the realm of statistical methodologies, my focal point is Bayesian feature extraction and estimation methods, where the nuanced incorporation of priors with potent shrinkage characteristics holds the key to unveiling latent structures within data. My research seeks not only to enhance our theoretical understanding but also to provide practical tools for efficient modeling and inference.\nA significant application of my methodological endeavors lies in neuroimaging data analysis, specifically addressing critical public health concerns related to mental illnesses. Leveraging Bayesian classification and regression techniques, I am driven to predict the early onset of mental-related illnesses. My exploration extends to unraveling functional connectivity intricacies between distinct brain regions, contributing to the broader discourse on cognitive and behavioral states.\nIn navigating the statistical landscape, my overarching ambition is to contribute to the advancement of statistical science. By delving into the intricacies of Bayesian methodologies, high-dimensional data analysis, and their application in neuroimaging, my research aims to be at the forefront of innovative statistical endeavors with real-world implications."
+    "text": "My research interest resides in developing cutting-edge Bayesian methodologies to address high dimensional classification and optimization problems related to spatio-temporal data. Specifically, my focus is developing feature extraction and estimation methods, while accounting for the cross-sectional correlations frequently observed in spatio-temporal data. This involves exploring sparsity inducing prior distributions, investigating techniques to incorporate the spatio-temporal structure into the model.\nMy research seeks to provide theoretical understanding and practical tools for efficient modeling and inference in complex settings with novel application. I am intrigued with examining neuroimaging data to unravel functional connectivity patterns between distinct brain regions, contributing to the broader discourse on cognitive and behavioral states. My motivation lies in the critical public health concerns surrounding mental-related illnesses which can be address through neuroimaging analysis. Leveraging Bayesian feature extraction and estimation procedures, I am driven to develop accurate subject-level prediction approaches to predict early onset of mental-related illnesses.\nIn conclusion, with interests in Bayesian methodologies, high dimensional spatio-temporal data analysis, and their application in neuroimaging, my research aims to be at the forefront of innovative statistical techniques with real-world implications."
+  },
+  {
+    "objectID": "stat_consulting.html#improving-firefighter-navigation-with-haptic-feedback",
+    "href": "stat_consulting.html#improving-firefighter-navigation-with-haptic-feedback",
+    "title": "Statistical Consulting",
+    "section": "Improving Firefighter Navigation with Haptic Feedback",
+    "text": "Improving Firefighter Navigation with Haptic Feedback\nPrimary Contact: Andrew Slater, Ph.D. Candidate (Dept. of Biomedical Engineering)\nMethods: We fit a logistic regression model on the binary response variable for success/failure. We include two fixed effects covariates for path and trial_type (belt vs. no belt), and include an interaction term between the two fixed effects covariates. We also include a random effect for ID, accounting for the fact that we have repeated observations on individual firefighters. By observing the fitted models, we are able to determine which covariates have a significant impact on the response (success/failure).\nConducted two experiments:\n\nExperiment 1\n\nAim: Determine if NHC communication can outperform a pass-alarm in navigating to a disabled firefighter.\nTasks:\n\nnavigate to a specific location withing the environment either while seeking out a clearly audible PASS alarm, or while being guided by the V-T Belt system\ndetermine the bearing to the target point at start of trail\ndetermine bearing to start point at end of trial\n\nFailure: timeout before reaching target location\n\n\n\nCode\n# package to examine the estimated marginal means\nlibrary(emmeans)\n# estimated marginal means\nem_glmm1 &lt;- emmeans(glmm1, ~ trial_type | path)\nip_glmm1 &lt;- emmip(em_glmm1, ~ trial_type | path, type = \"response\", \n                  bias.adjust = TRUE)\nip_glmm1\n\n\n\n\n\n\n\n\n\n\n\nExperiment 2\n\nAim: Determine if NHC can better route an egress path for firefighters over traditional methods.\nTasks:\n\nfirefighter led through the building and asked to retrace steps back to starting location using tradition methods, or firefighter placed at the return starting point and used the V-Tbelt\ndetermine the bearing to the target point at start of trail\ndetermine bearing to start point at end of trial\n\nFailure: timeout before reaching target or off return path for more than 20 seconds\n\n\n\nCode\n# package to examine the estimated marginal means\nlibrary(emmeans)\n# estimated marginal means\nem_glmm2 &lt;- emmeans(glmm2, ~ trial_type | path)\nip_glmm2 &lt;- emmip(em_glmm2, ~ trial_type | path, type = \"response\", \n                  bias.adjust = TRUE)\nip_glmm2"
+  },
+  {
+    "objectID": "stat_consulting.html#bidirectional-relationship-between-food-security-and-smoking",
+    "href": "stat_consulting.html#bidirectional-relationship-between-food-security-and-smoking",
+    "title": "Statistical Consulting",
+    "section": "Bidirectional Relationship Between Food Security and Smoking",
+    "text": "Bidirectional Relationship Between Food Security and Smoking\nPrimary Contact: Jon Phillips, Ph.D. (Assist. Prof., UConn School of Social Work)\nMethod: Cross-lagged panel models with covariates"
+  },
+  {
+    "objectID": "stat_consulting.html#pacemaker-and-heart-transplant-analysis",
+    "href": "stat_consulting.html#pacemaker-and-heart-transplant-analysis",
+    "title": "Statistical Consulting",
+    "section": "Pacemaker and Heart Transplant Analysis",
+    "text": "Pacemaker and Heart Transplant Analysis"
+  },
+  {
+    "objectID": "stat_consulting.html#comparing-outcomes-in-high-risk-populations-before-and-after-adjusting-allocation-and-prioritization-of-organ-transplants",
+    "href": "stat_consulting.html#comparing-outcomes-in-high-risk-populations-before-and-after-adjusting-allocation-and-prioritization-of-organ-transplants",
+    "title": "Statistical Consulting",
+    "section": "Comparing Outcomes in High-Risk Populations Before and After Adjusting Allocation and Prioritization of Organ Transplants",
+    "text": "Comparing Outcomes in High-Risk Populations Before and After Adjusting Allocation and Prioritization of Organ Transplants\nPrimary Contact: William L. Baker, Pharm.D. (Assoc. Prof., Dept. of Pharmacy Practice)\nMethod: Multiple imputation by Fine and Gray competing risk models"
+  },
+  {
+    "objectID": "stat_consulting.html#using-30-day-modified-rankin-scale-score-to-predict-90-day-score-in-patients-with-intracranial-hemorrhage-derivation-and-validation-of-prediction-model",
+    "href": "stat_consulting.html#using-30-day-modified-rankin-scale-score-to-predict-90-day-score-in-patients-with-intracranial-hemorrhage-derivation-and-validation-of-prediction-model",
+    "title": "Statistical Consulting",
+    "section": "Using 30-Day Modified Rankin Scale Score to Predict 90-Day Score in Patients with Intracranial Hemorrhage: Derivation and Validation of Prediction Model",
+    "text": "Using 30-Day Modified Rankin Scale Score to Predict 90-Day Score in Patients with Intracranial Hemorrhage: Derivation and Validation of Prediction Model\nPrimary Contact: William L. Baker, Pharm.D. (Assoc. Prof., Dept. of Pharmacy Practice)\nMethods: Ordinal beta regression, mortality risk score models"
+  },
+  {
+    "objectID": "stat_consulting.html#soldier-anaerobic-performance-and-relationships-with-independent-fitness-assessment-variables",
+    "href": "stat_consulting.html#soldier-anaerobic-performance-and-relationships-with-independent-fitness-assessment-variables",
+    "title": "Statistical Consulting",
+    "section": "Soldier Anaerobic Performance and Relationships with Independent Fitness Assessment Variables",
+    "text": "Soldier Anaerobic Performance and Relationships with Independent Fitness Assessment Variables"
+  },
+  {
+    "objectID": "stat_consulting.html#investigating-the-role-of-erythropoietin-on-megakaryocytic-erythroid-progenitor-survival-and-self-renewal",
+    "href": "stat_consulting.html#investigating-the-role-of-erythropoietin-on-megakaryocytic-erythroid-progenitor-survival-and-self-renewal",
+    "title": "Statistical Consulting",
+    "section": "Investigating the Role of Erythropoietin on Megakaryocytic-Erythroid Progenitor Survival and Self-Renewal",
+    "text": "Investigating the Role of Erythropoietin on Megakaryocytic-Erythroid Progenitor Survival and Self-Renewal"
+  },
+  {
+    "objectID": "stat_consulting.html#analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients",
+    "href": "stat_consulting.html#analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients",
+    "title": "Statistical Consulting",
+    "section": "Analyzing the Impact of Pacemaker Status on the Survival of Heart Transplant Patients",
+    "text": "Analyzing the Impact of Pacemaker Status on the Survival of Heart Transplant Patients\nPrimary Contact: Cesar Rodrigo Zoni, Postdoctoral Researcher (UCONN Health)\nMethod: Survival analysis utilizing multi-state modeling of time-to-event data"
   }
 ]
