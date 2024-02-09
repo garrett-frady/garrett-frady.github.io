@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://garrett-frady.github.io/index.html</loc>
-    <lastmod>2024-02-09T05:17:33.116Z</lastmod>
-  </url>
-  <url>
-    <loc>https://garrett-frady.github.io/my-new-qmd.html</loc>
-    <lastmod>2024-02-07T19:48:27.027Z</lastmod>
-  </url>
-  <url>
-    <loc>https://garrett-frady.github.io/blog.html</loc>
-    <lastmod>2024-02-09T02:53:30.308Z</lastmod>
-  </url>
-  <url>
-    <loc>https://garrett-frady.github.io/publications.html</loc>
-    <lastmod>2024-02-09T00:34:38.536Z</lastmod>
-  </url>
-  <url>
-    <loc>https://garrett-frady.github.io/stat_consulting.html</loc>
-    <lastmod>2024-02-09T06:58:07.918Z</lastmod>
-  </url>
-  <url>
-    <loc>https://garrett-frady.github.io/posts/post-with-code/index.html</loc>
-    <lastmod>2024-02-09T02:53:29.195Z</lastmod>
-  </url>
-  <url>
     <loc>https://garrett-frady.github.io/teaching.html</loc>
     <lastmod>2024-02-09T04:00:34.399Z</lastmod>
   </url>
@@ -35,5 +11,25 @@
   <url>
     <loc>https://garrett-frady.github.io/posts/welcome/index.html</loc>
     <lastmod>2024-02-09T02:56:12.314Z</lastmod>
+  </url>
+  <url>
+    <loc>https://garrett-frady.github.io/index.html</loc>
+    <lastmod>2024-02-09T05:17:33.116Z</lastmod>
+  </url>
+  <url>
+    <loc>https://garrett-frady.github.io/blog.html</loc>
+    <lastmod>2024-02-09T02:53:30.308Z</lastmod>
+  </url>
+  <url>
+    <loc>https://garrett-frady.github.io/posts/post-with-code/index.html</loc>
+    <lastmod>2024-02-09T02:53:29.195Z</lastmod>
+  </url>
+  <url>
+    <loc>https://garrett-frady.github.io/publications.html</loc>
+    <lastmod>2024-02-09T00:34:38.536Z</lastmod>
+  </url>
+  <url>
+    <loc>https://garrett-frady.github.io/stat_consulting.html</loc>
+    <lastmod>2024-02-09T06:58:07.918Z</lastmod>
   </url>
 </urlset>

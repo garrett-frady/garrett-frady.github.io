@@ -1,10 +1,31 @@
 [
   {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "My dedication to teaching and mentorship has been exemplified through the effort I have given to the different leadership roles I have held as a Graduate Assistant at the University of Connecticut. As the primary instructor, the feedback I have received from student evaluations supports my level of commitment to fostering growth in others while continually advancing myself. The one-on-one tutoring positions I have held showcased my capacity to build strong connections with students and elevated my capability of providing relatable examples tailored to the individual. My experience in these roles has refined my ability to communicate statistical concepts, enhancing my adaptability to diverse learning needs. Furthermore, I have increased proficiency in writing through the recommendation letters I have been asked to write for students. Beyond traditional teaching roles, I organized workshops introducing R to faculty and students from diverse disciplines, fostering a cross-disciplinary understanding of statistical tools.\n\nCourses - Primary Instructor\n\nIntroduction to Statistics (STAT1000Q)\n\nSummer 2021\n\n\n\n\n\n\n\n\n\nSummer 2022\nFall 2022\n\n\n\n\n\n\n\n\n\nFall 2023\n\n\n\n\n\n\n\n\n\nSpring 2024\n\n\n\nElementary Concepts of Statistics (STAT1100Q)\n\nFall 2023\n\n\n\n\n\n\n\n\n\n\n\n\nIntroduction to Mathematical Statistics II (STAT3445Q)\n\nSpring 2022"
+  },
+  {
+    "objectID": "research_interests.html",
+    "href": "research_interests.html",
+    "title": "Research Interest",
+    "section": "",
+    "text": "My research interest resides in developing cutting-edge Bayesian methodologies to address high dimensional classification and optimization problems related to spatio-temporal data. Specifically, my focus is developing feature extraction and estimation methods, while accounting for the cross-sectional correlations frequently observed in spatio-temporal data. This involves exploring sparsity inducing prior distributions, investigating techniques to incorporate the spatio-temporal structure into the model.\nMy research seeks to provide theoretical understanding and practical tools for efficient modeling and inference in complex settings with novel application. I am intrigued with examining neuroimaging data to unravel functional connectivity patterns between distinct brain regions, contributing to the broader discourse on cognitive and behavioral states. My motivation lies in the critical public health concerns surrounding mental-related illnesses which can be address through neuroimaging analysis. Leveraging Bayesian feature extraction and estimation procedures, I am driven to develop accurate subject-level prediction approaches to predict early onset of mental-related illnesses.\nIn conclusion, with interests in Bayesian methodologies, high dimensional spatio-temporal data analysis, and their application in neuroimaging, my research aims to be at the forefront of innovative statistical techniques with real-world implications."
+  },
+  {
     "objectID": "posts/welcome/index.html",
     "href": "posts/welcome/index.html",
     "title": "Bidirectional Relationship Between Food Security and Smoking",
     "section": "",
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Garrett Frady - PhD Candidate",
+    "section": "",
+    "text": "My academic journey began at the State University of New York (SUNY) at Potsdam as a result of being recruited to be on the basketball team. I realized that Division III basketball was a large commitment, so I continued my education at Clinton Community College, earning a Math/Science AS degree while finishing my basketball career. Returning to SUNY Potsdam afterward, I pursued double majors in math and computer science, culminating in a BA degree in both disciplines. My academic journey progressed further with the completion of a MA degree in math. The entire math department and my advisor, Dr. Cornelia Yuen, were (and are) incredible. I obtained a solid background in measure theory, abstract algebra and linear algebra, and they opened my eyes to a lot of opportunities.\nDriven by a desire for applied knowledge, I found my passion in statistics, drawn by its rapid growth in sports and other fields. Joining the statistics PhD program at the University of Connecticut (UConn) felt like a full circle moment, rooted in my family ties to the area and years of watching basketball games. My dissertation research has been under the guidance of Dr. Dipak K. Dey in the statistics department at UConn and co-advisor Dr. Shariq Mohammed in the biostatistics department at Boston University. Our research involves developing Bayesian approaches for simultaneous estimation and feature extraction applied to sparse, high-dimensional spatio-temporal data. Our proposed methods are aimed at conquering the curse of high-dimensionality and computational burden experienced in modeling complex data. We apply our methods to electroencephalography (EEG) data, aiming to analyze electrical activity between brain locations over time and predict alcohol status. Our ongoing work focuses on refining and advancing our methods, contributing to the evolving landscape of statistical methodologies.\nIn my personal life, I enjoy spending time with family and friends. Whether it be traveling, attending live music, or playing games inside, time with family and friends is precious. Traveling to new places is one of my favorite things to do, especially new beaches and mountains. Sports have always been a major part of my life and are my biggest passion. I grew up playing basketball, baseball, soccer, football, and hockey. My favorite sports to watch are college basketball, professional football, and professional baseball. There is no better sporting event than college basketball March Madness, in my opinion. Go UConn Huskies!"
   },
   {
     "objectID": "blog.html",
@@ -21,13 +42,6 @@
     "text": "rnorm(5, 0, 1)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Garrett Frady - PhD Candidate",
-    "section": "",
-    "text": "My academic journey began at the State University of New York (SUNY) at Potsdam as a result of being recruited to be on the basketball team. I realized that Division III basketball was a large commitment, so I continued my education at Clinton Community College, earning a Math/Science AS degree while finishing my basketball career. Returning to SUNY Potsdam afterward, I pursued double majors in math and computer science, culminating in a BA degree in both disciplines. My academic journey progressed further with the completion of a MA degree in math. The entire math department and my advisor, Dr. Cornelia Yuen, were (and are) incredible. I obtained a solid background in measure theory, abstract algebra and linear algebra, and they opened my eyes to a lot of opportunities.\nDriven by a desire for applied knowledge, I found my passion in statistics, drawn by its rapid growth in sports and other fields. Joining the statistics PhD program at the University of Connecticut (UConn) felt like a full circle moment, rooted in my family ties to the area and years of watching basketball games. My dissertation research has been under the guidance of Dr. Dipak K. Dey in the statistics department at UConn and co-advisor Dr. Shariq Mohammed in the biostatistics department at Boston University. Our research involves developing Bayesian approaches for simultaneous estimation and feature extraction applied to sparse, high-dimensional spatio-temporal data. Our proposed methods are aimed at conquering the curse of high-dimensionality and computational burden experienced in modeling complex data. We apply our methods to electroencephalography (EEG) data, aiming to analyze electrical activity between brain locations over time and predict alcohol status. Our ongoing work focuses on refining and advancing our methods, contributing to the evolving landscape of statistical methodologies.\nIn my personal life, I enjoy spending time with family and friends. Whether it be traveling, attending live music, or playing games inside, time with family and friends is precious. Traveling to new places is one of my favorite things to do, especially new beaches and mountains. Sports have always been a major part of my life and are my biggest passion. I grew up playing basketball, baseball, soccer, football, and hockey. My favorite sports to watch are college basketball, professional football, and professional baseball. There is no better sporting event than college basketball March Madness, in my opinion. Go UConn Huskies!"
-  },
-  {
     "objectID": "publications.html",
     "href": "publications.html",
     "title": "Publications",
@@ -35,60 +49,11 @@
     "text": "Publications\n\n\n\n\n\nFrady, G., Dey, D. K., Mohammed, S. (2024). Gaussian and Diffused-gamma Feature Extraction Applied to Sparse High Dimensional Spatio-Temporal Data by Local Modeling. (Submitted)\n\n\nFrady, G., Dey, D. K., Mohammed, S. (2024). Bayesian Feature Extraction Using Spatio-Temporally Structured Gaussian and Diffused-gamma Prior. (Under Preparation)\n\n\nBaker, W. L., Sharma, M., Cohen, A., Ouwens, M., Christoph, M. J., Koch, B., Moore, T. E., Frady, G., Coleman, C. I. (2023). Using 30-day modified rankin scale score to predict 90-day score in patients with intracranial hemorrhage: derivation and validation of prediction model. (Under Review)"
   },
   {
-    "objectID": "publications.html#submitted",
-    "href": "publications.html#submitted",
-    "title": "Publications",
-    "section": "",
-    "text": "Hernandez, K. (2023). Meowmazing paper i wrote. Meow Journal, 000, 0–0.\n\n\n\n\nGodoy, C., & Hernandez, K. (2022). Growlmazing paper we wrote. Meow Journal, 000, 0–0."
-  },
-  {
-    "objectID": "publications.html#near-submission",
-    "href": "publications.html#near-submission",
-    "title": "Publications",
-    "section": "",
-    "text": "Godoy, C., & Hernandez, K. (2022). Growlmazing paper we wrote. Meow Journal, 000, 0–0."
-  },
-  {
     "objectID": "stat_consulting.html",
     "href": "stat_consulting.html",
     "title": "Statistical Consulting",
     "section": "",
     "text": "I have worked as a consultant with Statistical Consulting Services (SCS) at the University of Connecticut since July, 2022. As of August, 2023, I have held the title of SCS Administrative Specialist. For more details surrounding SCS and our mission, please visit https://statsconsulting.uconn.edu/. In this position, I have collaborated with a variety of students and faculty from departments such as Kinesiology, Psychology, Civil and Environmental Engineering, Physiology and Neurobiology, Speech and Language, School of Pharmacy, School of Social Work, and School of Public Health. I have also had the experience of working with external clients such as Hartford HealthCare. Working under Director of SCS, Dr. Timothy E. Moore, and these collaborative experiences have elevated my capabilities as a researcher, enhanced my proficiency in R, facilitated exploration into various statistical coding languages, and enriched my skills as an educator."
-  },
-  {
-    "objectID": "teaching.html",
-    "href": "teaching.html",
-    "title": "Teaching",
-    "section": "",
-    "text": "My dedication to teaching and mentorship has been exemplified through the effort I have given to the different leadership roles I have held as a Graduate Assistant at the University of Connecticut. As the primary instructor, the feedback I have received from student evaluations supports my level of commitment to fostering growth in others while continually advancing myself. The one-on-one tutoring positions I have held showcased my capacity to build strong connections with students and elevated my capability of providing relatable examples tailored to the individual. My experience in these roles has refined my ability to communicate statistical concepts, enhancing my adaptability to diverse learning needs. Furthermore, I have increased proficiency in writing through the recommendation letters I have been asked to write for students. Beyond traditional teaching roles, I organized workshops introducing R to faculty and students from diverse disciplines, fostering a cross-disciplinary understanding of statistical tools.\n\nCourses - Primary Instructor\n\nIntroduction to Statistics (STAT1000Q)\n\nSummer 2021\n\n\n\n\n\n\n\n\n\nSummer 2022\nFall 2022\n\n\n\n\n\n\n\n\n\nFall 2023\n\n\n\n\n\n\n\n\n\nSpring 2024\n\n\n\nElementary Concepts of Statistics (STAT1100Q)\n\nFall 2023\n\n\n\n\n\n\n\n\n\n\n\n\nIntroduction to Mathematical Statistics II (STAT3445Q)\n\nSpring 2022"
-  },
-  {
-    "objectID": "teaching.html#introduction-to-statistics-stat1000",
-    "href": "teaching.html#introduction-to-statistics-stat1000",
-    "title": "Teaching",
-    "section": "Introduction to Statistics (STAT1000)",
-    "text": "Introduction to Statistics (STAT1000)"
-  },
-  {
-    "objectID": "teaching.html#elementary-concepts-of-statistics-stat1100",
-    "href": "teaching.html#elementary-concepts-of-statistics-stat1100",
-    "title": "Teaching",
-    "section": "Elementary Concepts of Statistics (STAT1100)",
-    "text": "Elementary Concepts of Statistics (STAT1100)"
-  },
-  {
-    "objectID": "teaching.html#introduction-to-mathematical-statistics-ii-stat3445",
-    "href": "teaching.html#introduction-to-mathematical-statistics-ii-stat3445",
-    "title": "Teaching",
-    "section": "Introduction to Mathematical Statistics II (STAT3445)",
-    "text": "Introduction to Mathematical Statistics II (STAT3445)"
-  },
-  {
-    "objectID": "research_interests.html",
-    "href": "research_interests.html",
-    "title": "Research Interest",
-    "section": "",
-    "text": "My research interest resides in developing cutting-edge Bayesian methodologies to address high dimensional classification and optimization problems related to spatio-temporal data. Specifically, my focus is developing feature extraction and estimation methods, while accounting for the cross-sectional correlations frequently observed in spatio-temporal data. This involves exploring sparsity inducing prior distributions, investigating techniques to incorporate the spatio-temporal structure into the model.\nMy research seeks to provide theoretical understanding and practical tools for efficient modeling and inference in complex settings with novel application. I am intrigued with examining neuroimaging data to unravel functional connectivity patterns between distinct brain regions, contributing to the broader discourse on cognitive and behavioral states. My motivation lies in the critical public health concerns surrounding mental-related illnesses which can be address through neuroimaging analysis. Leveraging Bayesian feature extraction and estimation procedures, I am driven to develop accurate subject-level prediction approaches to predict early onset of mental-related illnesses.\nIn conclusion, with interests in Bayesian methodologies, high dimensional spatio-temporal data analysis, and their application in neuroimaging, my research aims to be at the forefront of innovative statistical techniques with real-world implications."
   },
   {
     "objectID": "stat_consulting.html#improving-firefighter-navigation-with-haptic-feedback",
@@ -105,11 +70,11 @@
     "text": "Bidirectional Relationship Between Food Security and Smoking\nPrimary Contact: Jon Phillips, Ph.D. (Assist. Prof., UConn School of Social Work)\nMethod: Cross-lagged panel models with covariates"
   },
   {
-    "objectID": "stat_consulting.html#pacemaker-and-heart-transplant-analysis",
-    "href": "stat_consulting.html#pacemaker-and-heart-transplant-analysis",
+    "objectID": "stat_consulting.html#analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients",
+    "href": "stat_consulting.html#analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients",
     "title": "Statistical Consulting",
-    "section": "Pacemaker and Heart Transplant Analysis",
-    "text": "Pacemaker and Heart Transplant Analysis"
+    "section": "Analyzing the Impact of Pacemaker Status on the Survival of Heart Transplant Patients",
+    "text": "Analyzing the Impact of Pacemaker Status on the Survival of Heart Transplant Patients\nPrimary Contact: Cesar Rodrigo Zoni, Postdoctoral Researcher (UCONN Health)\nMethod: Survival analysis utilizing multi-state modeling of time-to-event data"
   },
   {
     "objectID": "stat_consulting.html#comparing-outcomes-in-high-risk-populations-before-and-after-adjusting-allocation-and-prioritization-of-organ-transplants",
@@ -124,26 +89,5 @@
     "title": "Statistical Consulting",
     "section": "Using 30-Day Modified Rankin Scale Score to Predict 90-Day Score in Patients with Intracranial Hemorrhage: Derivation and Validation of Prediction Model",
     "text": "Using 30-Day Modified Rankin Scale Score to Predict 90-Day Score in Patients with Intracranial Hemorrhage: Derivation and Validation of Prediction Model\nPrimary Contact: William L. Baker, Pharm.D. (Assoc. Prof., Dept. of Pharmacy Practice)\nMethods: Ordinal beta regression, mortality risk score models"
-  },
-  {
-    "objectID": "stat_consulting.html#soldier-anaerobic-performance-and-relationships-with-independent-fitness-assessment-variables",
-    "href": "stat_consulting.html#soldier-anaerobic-performance-and-relationships-with-independent-fitness-assessment-variables",
-    "title": "Statistical Consulting",
-    "section": "Soldier Anaerobic Performance and Relationships with Independent Fitness Assessment Variables",
-    "text": "Soldier Anaerobic Performance and Relationships with Independent Fitness Assessment Variables"
-  },
-  {
-    "objectID": "stat_consulting.html#investigating-the-role-of-erythropoietin-on-megakaryocytic-erythroid-progenitor-survival-and-self-renewal",
-    "href": "stat_consulting.html#investigating-the-role-of-erythropoietin-on-megakaryocytic-erythroid-progenitor-survival-and-self-renewal",
-    "title": "Statistical Consulting",
-    "section": "Investigating the Role of Erythropoietin on Megakaryocytic-Erythroid Progenitor Survival and Self-Renewal",
-    "text": "Investigating the Role of Erythropoietin on Megakaryocytic-Erythroid Progenitor Survival and Self-Renewal"
-  },
-  {
-    "objectID": "stat_consulting.html#analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients",
-    "href": "stat_consulting.html#analyzing-the-impact-of-pacemaker-status-on-the-survival-of-heart-transplant-patients",
-    "title": "Statistical Consulting",
-    "section": "Analyzing the Impact of Pacemaker Status on the Survival of Heart Transplant Patients",
-    "text": "Analyzing the Impact of Pacemaker Status on the Survival of Heart Transplant Patients\nPrimary Contact: Cesar Rodrigo Zoni, Postdoctoral Researcher (UCONN Health)\nMethod: Survival analysis utilizing multi-state modeling of time-to-event data"
   }
 ]
