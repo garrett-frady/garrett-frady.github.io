@@ -32,10 +32,8 @@ Conducted two experiments:
 
 ```{r, warning=FALSE, echo=FALSE, results='hide', message=FALSE}
 # necessary package to read in data
-library(rmarkdown)
 library(readxl) 
 library(dplyr)
-library(knitr)
 
 ############################### Data setup #####################################
 
