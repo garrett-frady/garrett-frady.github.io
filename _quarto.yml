@@ -18,6 +18,10 @@ website:
         href: CV.pdf
       - text: "Research Statement"
         href: Frady_Research_Statement.pdf
+      - text: "Teaching Statement"
+        href: Frady_Teaching_Statement.pdf
+      - text: "Diversity Statement"
+        href: Frady_Diversity_Statement.pdf
       - publications.qmd
       - research_interests.qmd
       - stat_consulting.qmd
