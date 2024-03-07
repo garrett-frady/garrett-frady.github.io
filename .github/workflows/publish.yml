@@ -12,19 +12,19 @@ jobs:
       contents: write
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v4
+        uses: quarto-dev/quarto-actions/setup@v3
       
-      - uses: r-lib/actions/setup-r-dependencies@v4
+      - uses: r-lib/actions/setup-r-dependencies@v3
         with:
           packages:
             knitr
             rmarkdown
 
       - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v4
+        uses: quarto-dev/quarto-actions/publish@v3
         with:
           target: gh-pages
             packages:
