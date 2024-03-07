@@ -24,7 +24,7 @@ jobs:
             rmarkdown
 
       - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v3
+        uses: quarto-dev/quarto-actions/publish@v4
         with:
           target: gh-pages
             packages:
