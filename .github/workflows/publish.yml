@@ -26,9 +26,9 @@ jobs:
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
-        target: gh-pages
-          packages:
-            knitr
-            rmarkdown
+          target: gh-pages
+            packages:
+              knitr
+              rmarkdown
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
