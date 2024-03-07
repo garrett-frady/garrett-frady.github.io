@@ -28,7 +28,7 @@ jobs:
         with:
           target: gh-pages
             packages:
-              # knitr
-              rmarkdown
+              knitr
+              # rmarkdown
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
