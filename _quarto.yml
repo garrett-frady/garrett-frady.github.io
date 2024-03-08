@@ -22,10 +22,10 @@ website:
         href: Frady_Teaching_Statement.pdf
       - text: "Diversity Statement"
         href: Frady_Diversity_Statement.pdf
-      - publications.qmd
-      - research_interests.qmd
-      - stat_consulting.qmd
-      - teaching.qmd
+      # - publications.qmd
+      # - research_interests.qmd
+      # - stat_consulting.qmd
+      # - teaching.qmd
     right:
       - icon: github
         href: https://github.com/garrett-frady
