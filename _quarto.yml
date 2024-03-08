@@ -13,7 +13,6 @@ website:
   site-url: https://garrett-frady.github.io
   navbar:
     left:
-#      - blog.qmd
       - text: "Curriculum Vitae"
         href: CV.pdf
       - text: "Research Statement"
@@ -22,10 +21,11 @@ website:
         href: Frady_Teaching_Statement.pdf
       - text: "Diversity Statement"
         href: Frady_Diversity_Statement.pdf
-      # - publications.qmd
-      # - research_interests.qmd
-      # - stat_consulting.qmd
-      # - teaching.qmd
+      - publications.qmd
+      - research_interests.qmd
+      - stat_consulting.qmd
+      - teaching.qmd
+#      - blog.qmd
     right:
       - icon: github
         href: https://github.com/garrett-frady
